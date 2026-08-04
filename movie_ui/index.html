@@ -166,6 +166,13 @@
         .notify-btn:hover { background-color: #ef4444; }
         .notify-btn:active { transform: scale(0.95); }
         svg { display: inline-block; vertical-align: middle; }
+        .filter-panel { display: none; background-color: #18181b; border: 1px solid #27272a; border-radius: 1rem; padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; display: none; flex-direction: column; gap: 1.25rem; }
+        .filter-panel.open { display: flex; }
+        .filter-group-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #71717a; margin-bottom: 0.6rem; }
+        .filter-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .filter-chip { background-color: #09090b; border: 1px solid #27272a; color: #a1a1aa; font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.85rem; border-radius: 999px; cursor: pointer; transition: all 0.15s ease; }
+        .filter-chip:hover { border-color: #ef4444; color: white; }
+        .filter-chip.active { background-color: #dc2626; border-color: #dc2626; color: white; }
         @media (min-width: 640px) { .search-container { display: block; } .email-form { flex-direction: row; } .movie-grid { grid-template-columns: repeat(2,1fr); } }
         @media (min-width: 768px) { .nav-links { display: flex; } .hero-title { font-size: 5rem; } .hero-content { padding: 4rem; } .streaming-content { flex-direction: row; align-items: center; } .streaming-text h2 { font-size: 2.25rem; } .footer-main { flex-direction: row; } .footer-brand { align-items: flex-start; } .footer-description { text-align: left; } .footer-bottom { flex-direction: row; } .footer-copyright { text-align: left; } .modal-layout { flex-direction: row; } .modal-poster { width: 40%; height: auto; } .modal-body { padding: 2.5rem; } .modal-title { font-size: 2.25rem; } }
         @media (min-width: 1024px) { .movie-grid { grid-template-columns: repeat(3,1fr); } }
@@ -190,7 +197,7 @@
             <div class="nav-actions">
                 <div class="search-container">
                     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                    <input type="text" id="search-input" placeholder="Search Spring 2026 movies..." />
+                    <input type="text" id="search-input" placeholder="Search 2026 movies..." />
                 </div>
                 <button class="bell-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
@@ -227,7 +234,7 @@
 
         <div class="section-header">
             <div class="section-title">
-                <h2>Spring 2026 Lineup</h2>
+                <h2>2026 Lineup</h2>
                 <p class="section-subtitle">Tracking theatrical releases from March to May 2026</p>
             </div>
             <div class="section-controls">
@@ -242,13 +249,46 @@
             </div>
         </div>
 
+        
+        <div id="filter-panel" class="filter-panel">
+            <div class="filter-group">
+                <p class="filter-group-label">Genre</p>
+                <div class="filter-chips">
+                    <button class="filter-chip active" data-group="genre" data-value="All">All</button>
+                    <button class="filter-chip" data-group="genre" data-value="Action">Action</button>
+                    <button class="filter-chip" data-group="genre" data-value="Horror">Horror</button>
+                    <button class="filter-chip" data-group="genre" data-value="Sci-Fi">Sci-Fi</button>
+                    <button class="filter-chip" data-group="genre" data-value="Comedy">Comedy</button>
+                    <button class="filter-chip" data-group="genre" data-value="Family">Family</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <p class="filter-group-label">Theatrical Release</p>
+                <div class="filter-chips">
+                    <button class="filter-chip active" data-group="theatrical" data-value="All">All</button>
+                    <button class="filter-chip" data-group="theatrical" data-value="7-8">Jul – Aug</button>
+                    <button class="filter-chip" data-group="theatrical" data-value="9-10">Sep – Oct</button>
+                    <button class="filter-chip" data-group="theatrical" data-value="11-12">Nov – Dec</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <p class="filter-group-label">Est. Streaming Date</p>
+                <div class="filter-chips">
+                    <button class="filter-chip active" data-group="streaming" data-value="All">All</button>
+                    <button class="filter-chip" data-group="streaming" data-value="10-12">Late 2026</button>
+                    <button class="filter-chip" data-group="streaming" data-value="13-14">Early 2027</button>
+                    <button class="filter-chip" data-group="streaming" data-value="15-16">Mid 2027</button>
+                </div>
+            </div>
+        </div>
+
         <div class="movie-grid" id="movie-grid"></div>
 
         <section class="streaming-section">
             <div class="streaming-content">
                 <div class="streaming-text">
                     <h2>Smart Tracking for the 2026 Box Office</h2>
-                    <p>The Spring 2026 season is packed with major blockbusters. Use CinePrice to track ticket discounts, IMAX availability, and projected streaming dates for the year's biggest hits.</p>
+                    <p>The 2026 season is packed with major blockbusters. Use CinePrice to track ticket discounts, IMAX availability, and projected streaming dates for the year's biggest hits.</p>
                     <form class="email-form">
                         <input type="email" class="email-input" placeholder="Enter your email for alerts" />
                         <button type="submit" class="email-submit">Get Alerts</button>
@@ -260,10 +300,10 @@
                         <div class="stats-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
                         </div>
-                        <h3 class="stats-title">Spring Trends</h3>
+                        <h3 class="stats-title"> 2026 Trends</h3>
                     </div>
                     <div class="stats-list">
-                        <div class="stat-item"><span class="stat-label">Avg. Spring Ticket</span><span class="stat-value">$17.85</span></div>
+                        <div class="stat-item"><span class="stat-label">Avg Ticket</span><span class="stat-value">$17.85</span></div>
                         <div class="stat-item"><span class="stat-label">Premium (IMAX) Demand</span><span class="stat-value red">+24%</span></div>
                         <div class="stat-item"><span class="stat-label">Avg. Digital Window</span><span class="stat-value green">45-60 Days</span></div>
                     </div>
@@ -353,21 +393,40 @@
 
     <script>
         const MOVIES = [
-            { id: '1', title: 'Moana (Live-Action)', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', description: "Disney's live-action reimagining of the beloved animated adventure. Moana, a spirited Pacific voyager played by Catherine Laga'aia, answers the ocean's call and sails beyond the reef of her island for the first time. Dwayne Johnson returns as the demigod Maui, with new original songs from Lin-Manuel Miranda.", theatricalDate: 'July 10, 2026', streamingDate: 'Oct 2026 (Est.)', platform: 'Disney+', prices: { theater: [] } },
-            { id: '2', title: 'The Odyssey', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600', description: "Christopher Nolan's mythic action epic shot entirely on 70mm IMAX cameras. Matt Damon stars as Odysseus on his years-long journey home after the Trojan War, facing monsters, gods, and impossible odds. The star-studded cast includes Tom Holland, Anne Hathaway, Zendaya, Robert Pattinson, and Charlize Theron.", theatricalDate: 'July 17, 2026', streamingDate: 'Nov 2026 – Early 2027 (Est.)', platform: 'Peacock', prices: { theater: [] } },
-            { id: '3', title: 'Spider-Man: Brand New Day', image: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=600'', description: "Tom Holland swings back as Peter Parker in a world that no longer remembers him. Struggling to balance a secret identity with the pressure of watching friends move on without him, Spider-Man faces a powerful new invisible threat to New York City. Zendaya, Mark Ruffalo, Jon Bernthal, and Sadie Sink co-star.", theatricalDate: 'July 31, 2026', streamingDate: 'Early 2027 (Est.)', platform: 'Netflix / Disney+', prices: { theater: [] } },
-            { id: '4', title: 'Coyote vs. Acme', image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600', description: "After a lifetime of catastrophic product failures, Wile E. Coyote finally sues the ACME Corporation. With a down-on-his-luck lawyer by his side, the iconic Looney Tunes character takes on a corporate giant in this wildly entertaining live-action and animated hybrid comedy. Stars Will Forte and John Cena.", theatricalDate: 'August 28, 2026', streamingDate: 'Late 2026 (Est.)', platform: 'TBA', prices: { theater: [] } },
-            { id: '5', title: 'Insidious: Out of the Further', image: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600', description: "The next terrifying chapter in the Insidious franchise. When a new family unknowingly opens a doorway to the supernatural realm known as The Further, an ancient evil is unleashed that threatens to consume everything it touches. Produced by James Wan and Jason Blum, directed by Kate Dolan.", theatricalDate: 'August 21, 2026', streamingDate: 'Late 2026 (Est.)', platform: 'Peacock', prices: { theater: [] } },
-            { id: '6', title: 'Resident Evil', image: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=600', description: "Sony's new big-screen adaptation of the iconic survival horror video game franchise. A group of special operatives investigate Umbrella Corporation's secret facility and find themselves trapped with terrifying biological weapons as a global conspiracy slowly unravels around them.", theatricalDate: 'September 18, 2026', streamingDate: 'Early 2027 (Est.)', platform: 'TBA', prices: { theater: [] } },
-            { id: '7', title: 'Clayface', image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=600', description: "DC's shape-shifting villain gets his own standalone film. Fading actor Basil Karlo gains terrifying powers that blur the line between performance and reality. Part superhero origin story and part psychological horror, Clayface is one of DC's most ambitious and unconventional entries yet — directed by Bassam Tariq.", theatricalDate: 'October 23, 2026', streamingDate: 'Early 2027 (Est.)', platform: 'Max', prices: { theater: [] } },
-            { id: '8', title: 'The Hunger Games: Sunrise on the Reaping', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600', description: "Set 24 years before Katniss Everdeen's story, this prequel follows a young Haymitch Abernathy as he enters the brutal 50th Hunger Games — the second Quarter Quell. Based on Suzanne Collins' novel, it reveals the events that shaped one of the series' most beloved characters.", theatricalDate: 'November 20, 2026', streamingDate: 'Early 2027 (Est.)', platform: 'Peacock', prices: { theater: [] } },
-            { id: '9', title: 'Godzilla Minus Zero', image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=600', description: "The sequel to the Academy Award-winning Godzilla Minus One, again directed by Takashi Yamazaki. Set in 1949, two years after the devastating events of the original, Japan faces a new and even more catastrophic chapter of destruction. The first Japanese production filmed entirely for IMAX.", theatricalDate: 'November 6, 2026', streamingDate: 'Early 2027 (Est.)', platform: 'TBA', prices: { theater: [] } },
-            { id: '10', title: 'Dune: Part Three', image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?q=80&w=600', description: "Denis Villeneuve completes his landmark sci-fi trilogy with Dune Messiah. Paul Atreides, now Emperor of the Known Universe, faces the devastating consequences of his rise to power as prophecy, politics, and personal sacrifice collide. Timothée Chalamet, Zendaya, and the full ensemble return.", theatricalDate: 'December 18, 2026', streamingDate: 'Mar – Apr 2027 (Est.)', platform: 'Max', prices: { theater: [] } },
-            { id: '11', title: 'Jumanji: Open World', image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600', description: "The game is no longer contained — Jumanji breaks free of its console and unleashes chaos into the real world. Dwayne Johnson, Kevin Hart, Jack Black, and Karen Gillan reprise their iconic avatar roles, now running wild in our world as the original players scramble to send them back before it's too late.", theatricalDate: 'December 25, 2026', streamingDate: 'Mar 2027 (Est.)', platform: 'Netflix', prices: { theater: [] } },
-            { id: '12', title: 'Avengers: Doomsday', image: 'https://images.unsplash.com/photo-1677926405168-fa86268b7295?q=80&w=600', description: "The Russo Brothers return to the MCU for the most ambitious Avengers film yet. Robert Downey Jr. is back — not as Tony Stark, but as the terrifying Victor von Doom. Every corner of the MCU collides: Avengers, Wakandans, Fantastic Four, Thunderbolts, and X-Men must unite against a threat that could unravel reality itself.", theatricalDate: 'December 18, 2026', streamingDate: 'Feb – Mar 2027 (Est.)', platform: 'Disney+', prices: { theater: [] } }
+            { id: '1',  title: 'Moana (Live-Action)',                        genre: 'Family',    theatricalMonth: 7,  streamingMonth: 10, image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600',      description: "Disney's live-action reimagining of the beloved animated adventure. Moana, a spirited Pacific voyager played by Catherine Laga'aia, answers the ocean's call and sails beyond the reef of her island for the first time. Dwayne Johnson returns as the demigod Maui, with new original songs from Lin-Manuel Miranda.", theatricalDate: 'July 10, 2026',      streamingDate: 'Oct 2026 (Est.)',            platform: 'Disney+',        prices: { theater: [] } },
+            { id: '2',  title: 'The Odyssey',                                genre: 'Action',    theatricalMonth: 7,  streamingMonth: 11, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600',      description: "Christopher Nolan's mythic action epic shot entirely on 70mm IMAX cameras. Matt Damon stars as Odysseus on his years-long journey home after the Trojan War, facing monsters, gods, and impossible odds. The star-studded cast includes Tom Holland, Anne Hathaway, Zendaya, Robert Pattinson, and Charlize Theron.", theatricalDate: 'July 17, 2026',      streamingDate: 'Nov 2026 – Early 2027 (Est.)', platform: 'Peacock',         prices: { theater: [] } },
+            { id: '3',  title: 'Spider-Man: Brand New Day',                  genre: 'Action',    theatricalMonth: 7,  streamingMonth: 13, image: 'https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=600',      description: "Tom Holland swings back as Peter Parker in a world that no longer remembers him. Struggling to balance a secret identity with the pressure of watching friends move on without him, Spider-Man faces a powerful new invisible threat to New York City. Zendaya, Mark Ruffalo, Jon Bernthal, and Sadie Sink co-star.", theatricalDate: 'July 31, 2026',      streamingDate: 'Early 2027 (Est.)',          platform: 'Netflix / Disney+', prices: { theater: [] } },
+            { id: '4',  title: 'Coyote vs. Acme',                            genre: 'Comedy',    theatricalMonth: 8,  streamingMonth: 12, image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600',      description: "After a lifetime of catastrophic product failures, Wile E. Coyote finally sues the ACME Corporation. With a down-on-his-luck lawyer by his side, the iconic Looney Tunes character takes on a corporate giant in this wildly entertaining live-action and animated hybrid comedy. Stars Will Forte and John Cena.", theatricalDate: 'August 28, 2026',    streamingDate: 'Late 2026 (Est.)',           platform: 'TBA',            prices: { theater: [] } },
+            { id: '5',  title: 'Insidious: Out of the Further',              genre: 'Horror',    theatricalMonth: 8,  streamingMonth: 12, image: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600',      description: "The next terrifying chapter in the Insidious franchise. When a new family unknowingly opens a doorway to the supernatural realm known as The Further, an ancient evil is unleashed that threatens to consume everything it touches. Produced by James Wan and Jason Blum, directed by Kate Dolan.", theatricalDate: 'August 21, 2026',    streamingDate: 'Late 2026 (Est.)',           platform: 'Peacock',        prices: { theater: [] } },
+            { id: '6',  title: 'Resident Evil',                              genre: 'Horror',    theatricalMonth: 9,  streamingMonth: 13, image: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=600',      description: "Sony's new big-screen adaptation of the iconic survival horror video game franchise. A group of special operatives investigate Umbrella Corporation's secret facility and find themselves trapped with terrifying biological weapons as a global conspiracy slowly unravels around them.", theatricalDate: 'September 18, 2026', streamingDate: 'Early 2027 (Est.)',          platform: 'TBA',            prices: { theater: [] } },
+            { id: '7',  title: 'Clayface',                                   genre: 'Action',    theatricalMonth: 10, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=600',      description: "DC's shape-shifting villain gets his own standalone film. Fading actor Basil Karlo gains terrifying powers that blur the line between performance and reality. Part superhero origin story and part psychological horror, Clayface is one of DC's most ambitious and unconventional entries yet — directed by Bassam Tariq.", theatricalDate: 'October 23, 2026',   streamingDate: 'Early 2027 (Est.)',          platform: 'Max',            prices: { theater: [] } },
+            { id: '8',  title: 'The Hunger Games: Sunrise on the Reaping',   genre: 'Sci-Fi',    theatricalMonth: 11, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600',      description: "Set 24 years before Katniss Everdeen's story, this prequel follows a young Haymitch Abernathy as he enters the brutal 50th Hunger Games — the second Quarter Quell. Based on Suzanne Collins' novel, it reveals the events that shaped one of the series' most beloved characters.", theatricalDate: 'November 20, 2026',  streamingDate: 'Early 2027 (Est.)',          platform: 'Peacock',        prices: { theater: [] } },
+            { id: '9',  title: 'Godzilla Minus Zero',                        genre: 'Action',    theatricalMonth: 11, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=600',      description: "The sequel to the Academy Award-winning Godzilla Minus One, again directed by Takashi Yamazaki. Set in 1949, two years after the devastating events of the original, Japan faces a new and even more catastrophic chapter of destruction. The first Japanese production filmed entirely for IMAX.", theatricalDate: 'November 6, 2026',   streamingDate: 'Early 2027 (Est.)',          platform: 'TBA',            prices: { theater: [] } },
+            { id: '10', title: 'Dune: Part Three',                           genre: 'Sci-Fi',    theatricalMonth: 12, streamingMonth: 15, image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?q=80&w=600',      description: "Denis Villeneuve completes his landmark sci-fi trilogy with Dune Messiah. Paul Atreides, now Emperor of the Known Universe, faces the devastating consequences of his rise to power as prophecy, politics, and personal sacrifice collide. Timothée Chalamet, Zendaya, and the full ensemble return.", theatricalDate: 'December 18, 2026',  streamingDate: 'Mar – Apr 2027 (Est.)',      platform: 'Max',            prices: { theater: [] } },
+            { id: '11', title: 'Jumanji: Open World',                        genre: 'Comedy',    theatricalMonth: 12, streamingMonth: 15, image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600',      description: "The game is no longer contained — Jumanji breaks free of its console and unleashes chaos into the real world. Dwayne Johnson, Kevin Hart, Jack Black, and Karen Gillan reprise their iconic avatar roles, now running wild in our world as the original players scramble to send them back before it's too late.", theatricalDate: 'December 25, 2026',  streamingDate: 'Mar 2027 (Est.)',            platform: 'Netflix',        prices: { theater: [] } },
+            { id: '12', title: 'Avengers: Doomsday',                         genre: 'Action',    theatricalMonth: 12, streamingMonth: 14, image: 'https://images.unsplash.com/photo-1677926405168-fa86268b7295?q=80&w=600',      description: "The Russo Brothers return to the MCU for the most ambitious Avengers film yet. Robert Downey Jr. is back — not as Tony Stark, but as the terrifying Victor von Doom. Every corner of the MCU collides: Avengers, Wakandans, Fantastic Four, Thunderbolts, and X-Men must unite against a threat that could unravel reality itself.", theatricalDate: 'December 18, 2026',  streamingDate: 'Feb – Mar 2027 (Est.)',      platform: 'Disney+',        prices: { theater: [] } }
         ];
 
         let currentMovie = null;
+        let activeFilters = { genre: 'All', theatrical: 'All', streaming: 'All' };
+
+        function applyFilters() {
+            let filtered = MOVIES;
+            if (activeFilters.genre !== 'All') {
+                filtered = filtered.filter(m => m.genre === activeFilters.genre);
+            }
+            if (activeFilters.theatrical !== 'All') {
+                const [min, max] = activeFilters.theatrical.split('-').map(Number);
+                filtered = filtered.filter(m => m.theatricalMonth >= min && m.theatricalMonth <= max);
+            }
+            if (activeFilters.streaming !== 'All') {
+                const [min, max] = activeFilters.streaming.split('-').map(Number);
+                filtered = filtered.filter(m => m.streamingMonth >= min && m.streamingMonth <= max);
+            }
+            const search = document.getElementById('search-input').value.toLowerCase();
+            if (search) filtered = filtered.filter(m => m.title.toLowerCase().includes(search));
+            renderMovies(filtered);
+        }
 
         function renderMovies(moviesToRender = MOVIES) {
             const grid = document.getElementById('movie-grid');
@@ -426,11 +485,26 @@
 
         document.getElementById('modal-close').addEventListener('click', closeModal);
         document.getElementById('modal-overlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
-        document.getElementById('search-input').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            renderMovies(MOVIES.filter(m => m.title.toLowerCase().includes(query)));
-        });
+        document.getElementById('search-input').addEventListener('input', applyFilters);
         document.querySelector('[data-movie-id="1"]').addEventListener('click', () => openModal('12'));
+
+        // Filter panel toggle
+        const filterBtn = document.querySelector('.filter-btn');
+        const filterPanel = document.getElementById('filter-panel');
+        filterBtn.addEventListener('click', () => {
+            filterPanel.classList.toggle('open');
+        });
+
+        // Filter chips
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const group = chip.getAttribute('data-group');
+                document.querySelectorAll(`.filter-chip[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                activeFilters[group] = chip.getAttribute('data-value');
+                applyFilters();
+            });
+        });
 
         renderMovies();
     </script>
