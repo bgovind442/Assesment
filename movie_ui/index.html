@@ -26,7 +26,19 @@
         .bell-button { position: relative; padding: 0.5rem; color: #71717a; background: none; border: none; cursor: pointer; transition: color 0.2s; }
         .bell-button:hover { color: white; }
         .bell-notification { position: absolute; top: 0.5rem; right: 0.5rem; width: 0.5rem; height: 0.5rem; background-color: #ef4444; border-radius: 50%; border: 1px solid #09090b; }
-        .user-avatar { width: 2rem; height: 2rem; border-radius: 50%; background-color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.2); }
+        .user-avatar { width: 2rem; height: 2rem; border-radius: 50%; background-color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; position: relative; }
+        .user-dropdown { position: absolute; top: calc(100% + 0.5rem); right: 0; background-color: #18181b; border: 1px solid #27272a; border-radius: 0.75rem; padding: 0.5rem; min-width: 160px; display: none; flex-direction: column; gap: 0.25rem; z-index: 100; }
+        .user-dropdown.open { display: flex; }
+        .user-dropdown-name { font-size: 0.75rem; font-weight: 700; color: white; padding: 0.5rem 0.75rem; border-bottom: 1px solid #27272a; margin-bottom: 0.25rem; }
+        .user-dropdown-btn { background: none; border: none; color: #a1a1aa; font-size: 0.8rem; font-weight: 600; padding: 0.5rem 0.75rem; border-radius: 0.5rem; cursor: pointer; text-align: left; transition: all 0.15s; font-family: inherit; }
+        .user-dropdown-btn:hover { background-color: #27272a; color: white; }
+        .user-dropdown-btn.logout { color: #ef4444; }
+        .user-dropdown-btn.logout:hover { background-color: rgba(239,68,68,0.1); color: #ef4444; }
+        .auth-btn { font-size: 0.8rem; font-weight: 700; padding: 0.45rem 1rem; border-radius: 0.6rem; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .auth-btn-login { background: none; border: 1px solid #27272a; color: #a1a1aa; }
+        .auth-btn-login:hover { border-color: #52525b; color: white; }
+        .auth-btn-signup { background-color: #dc2626; border: none; color: white; }
+        .auth-btn-signup:hover { background-color: #ef4444; }
         main { padding-top: 7rem; padding-bottom: 5rem; padding-left: 1.5rem; padding-right: 1.5rem; max-width: 80rem; margin: 0 auto; }
         .hero-section { position: relative; border-radius: 2.5rem; overflow: hidden; background-color: #18181b; height: 450px; margin-bottom: 4rem; }
         .hero-section:hover .hero-image { transform: scale(1.05); }
@@ -44,18 +56,39 @@
         .btn-primary:active { transform: scale(0.95); }
         .btn-secondary { background-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); color: white; font-weight: 700; padding: 1rem 2rem; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.2s; }
         .btn-secondary:hover { background-color: rgba(255,255,255,0.2); }
-        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+
+        /* Section header */
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
         .section-title h2 { font-size: 1.875rem; font-weight: 900; color: white; margin-bottom: 0.5rem; }
         .section-subtitle { color: #71717a; font-size: 0.875rem; font-weight: 500; }
         .section-controls { display: flex; align-items: center; gap: 0.75rem; }
-        .filter-btn { display: flex; align-items: center; gap: 0.5rem; background-color: #18181b; border: 1px solid #27272a; padding: 0.5rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 700; color: white; cursor: pointer; transition: background-color 0.2s; }
-        .filter-btn:hover { background-color: #27272a; }
         .view-toggle { display: flex; background-color: #18181b; padding: 0.25rem; border-radius: 0.75rem; border: 1px solid #27272a; }
         .view-toggle button { padding: 0.375rem 0.75rem; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; border-radius: 0.5rem; }
         .view-toggle button.active { background-color: #27272a; color: white; }
         .view-toggle button:not(.active) { background: transparent; color: #71717a; }
         .view-toggle button:not(.active):hover { color: white; }
+
+        /* Sidebar + grid layout */
+        .content-wrapper { display: flex; gap: 2rem; align-items: flex-start; }
+        .filter-sidebar { width: 210px; flex-shrink: 0; background-color: #18181b; border: 1px solid #27272a; border-radius: 1.25rem; padding: 1.5rem; position: sticky; top: 6rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .filter-sidebar-header { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid #27272a; padding-bottom: 1rem; }
+        .filter-sidebar-header svg { color: #ef4444; }
+        .filter-reset { margin-left: auto; font-size: 0.68rem; font-weight: 600; color: #ef4444; background: none; border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 0.04em; padding: 0; }
+        .filter-reset:hover { color: #f87171; }
+        .filter-group { display: flex; flex-direction: column; gap: 0.45rem; }
+        .filter-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #71717a; }
+        .custom-select-wrapper { position: relative; }
+        .custom-select { width: 100%; background-color: #09090b; border: 1px solid #27272a; border-radius: 0.6rem; padding: 0.55rem 2rem 0.55rem 0.75rem; font-size: 0.8rem; font-weight: 600; color: #f4f4f5; appearance: none; -webkit-appearance: none; cursor: pointer; outline: none; transition: border-color 0.2s; font-family: inherit; }
+        .custom-select:hover { border-color: #3f3f46; }
+        .custom-select:focus { border-color: #ef4444; box-shadow: 0 0 0 2px rgba(239,68,68,0.15); }
+        .select-arrow { position: absolute; right: 0.65rem; top: 50%; transform: translateY(-50%); color: #71717a; pointer-events: none; width: 14px; height: 14px; }
+        .filter-results-count { font-size: 0.72rem; color: #52525b; font-weight: 500; border-top: 1px solid #27272a; padding-top: 1rem; }
+
+        /* Grid */
+        .grid-wrapper { flex: 1; min-width: 0; }
         .movie-grid { display: grid; grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 6rem; }
+
+        /* Cards */
         .movie-card { position: relative; background-color: #18181b; border-radius: 1.25rem; overflow: hidden; cursor: pointer; transition: all 0.25s ease; border: 1px solid #27272a; display: flex; flex-direction: column; height: 100%; }
         .movie-card:hover { transform: translateY(-4px); border-color: #ef4444; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .movie-poster { position: relative; aspect-ratio: 2/3; overflow: hidden; border-radius: 1.25rem 1.25rem 0 0; }
@@ -63,7 +96,8 @@
         .movie-poster img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         .poster-gradient { position: absolute; inset: 0; background: linear-gradient(to top, rgba(9,9,11,0.95) 0%, rgba(9,9,11,0.3) 50%, transparent 100%); }
         .movie-badge { position: absolute; top: 1rem; left: 1rem; background-color: #dc2626; color: white; font-size: 0.6rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em; }
-        .movie-info { padding: 1.25rem 1.25rem 1.25rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+        .genre-badge { position: absolute; top: 1rem; right: 1rem; background-color: rgba(9,9,11,0.75); color: #a1a1aa; font-size: 0.6rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid #3f3f46; backdrop-filter: blur(4px); }
+        .movie-info { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
         .movie-title { color: white; font-weight: 800; font-size: 1rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .movie-description { color: #71717a; font-size: 0.78rem; line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
         .movie-dates { margin-top: 0.75rem; padding-top: 1rem; border-top: 1px solid #27272a; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -72,32 +106,15 @@
         .date-value { color: #f4f4f5; font-size: 0.78rem; font-weight: 800; white-space: nowrap; }
         .streaming-row { display: flex; align-items: center; justify-content: space-between; }
         .streaming-label { display: flex; align-items: center; gap: 0.4rem; }
-        .streaming-label svg { width: 0.75rem; height: 0.75rem; color: #34d399; }
+        .streaming-label svg { width: 0.75rem; height: 0.75rem; color: #fbbf24; }
         .streaming-label span { color: #52525b; font-size: 0.7rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em; }
-        .streaming-date { color: #34d399; font-size: 0.78rem; font-weight: 800; }
-        .streaming-section { margin-top: 6rem; background-color: #18181b; border-radius: 2.5rem; padding: 2.5rem; border: 1px solid #27272a; overflow: hidden; position: relative; }
-        .streaming-content { position: relative; z-index: 10; display: flex; flex-direction: column; gap: 3rem; }
-        .streaming-text { flex: 1; }
-        .streaming-text h2 { font-size: 1.875rem; font-weight: 900; color: white; margin-bottom: 1.5rem; line-height: 1.2; }
-        .streaming-text p { color: #a1a1aa; margin-bottom: 2rem; line-height: 1.6; font-size: 1.125rem; }
-        .email-form { display: flex; flex-direction: column; gap: 1rem; }
-        .email-input { flex: 1; background-color: #09090b; border: 1px solid #27272a; border-radius: 1rem; padding: 1rem 1.5rem; font-size: 0.875rem; color: white; outline: none; transition: all 0.2s; }
-        .email-input:focus { border-color: #ef4444; box-shadow: 0 0 0 2px rgba(239,68,68,0.2); }
-        .email-submit { background-color: #dc2626; color: white; font-weight: 900; padding: 1rem 2rem; border-radius: 1rem; border: none; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
-        .email-submit:hover { background-color: #ef4444; }
-        .email-submit:active { transform: scale(0.95); }
-        .stats-card { width: 100%; background-color: #09090b; padding: 1.5rem; border-radius: 1.5rem; border: 1px solid #27272a; transform: rotate(2deg); position: relative; }
-        .live-badge { position: absolute; top: -0.75rem; right: -0.75rem; background-color: #dc2626; color: white; font-size: 0.625rem; font-weight: 900; padding: 0.25rem 0.75rem; border-radius: 9999px; text-transform: uppercase; letter-spacing: -0.025em; }
-        .stats-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
-        .stats-icon { width: 2.5rem; height: 2.5rem; background-color: rgba(220,38,38,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ef4444; }
-        .stats-title { font-weight: 700; color: white; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; }
-        .stats-list { display: flex; flex-direction: column; gap: 1rem; }
-        .stat-item { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #18181b; padding-bottom: 0.5rem; }
-        .stat-label { color: #71717a; font-size: 0.75rem; }
-        .stat-value { color: white; font-weight: 900; }
-        .stat-value.red { color: #f87171; }
-        .stat-value.green { color: #34d399; }
-        .streaming-blur { position: absolute; bottom: -2.5rem; right: -2.5rem; width: 16rem; height: 16rem; background-color: rgba(220,38,38,0.1); border-radius: 50%; filter: blur(100px); }
+        .streaming-date { color: #fbbf24; font-size: 0.78rem; font-weight: 800; }
+
+        /* No results */
+        .no-results { grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: #52525b; }
+        .no-results p:first-child { font-size: 1.1rem; font-weight: 700; color: #71717a; margin-bottom: 0.5rem; }
+
+        /* Footer */
         footer { background-color: #09090b; border-top: 1px solid #18181b; padding: 4rem 1.5rem; }
         .footer-container { max-width: 80rem; margin: 0 auto; }
         .footer-main { display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 3rem; margin-bottom: 3rem; }
@@ -117,6 +134,8 @@
         .footer-social { display: flex; gap: 1.5rem; }
         .social-icon { width: 1.25rem; height: 1.25rem; background-color: #27272a; border-radius: 50%; cursor: pointer; transition: background-color 0.2s; }
         .social-icon:hover { background-color: #dc2626; }
+
+        /* Modal */
         .modal-overlay { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; padding: 1rem; background-color: rgba(9,9,11,0.9); backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
         .modal-content { position: relative; background-color: #18181b; width: 100%; max-width: 64rem; max-height: 90vh; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 20px 80px rgba(0,0,0,0.5); display: flex; flex-direction: column; border: 1px solid #27272a; }
@@ -127,56 +146,60 @@
         .modal-poster img { width: 100%; height: 100%; object-fit: cover; }
         .modal-body { flex: 1; padding: 1.5rem; overflow-y: auto; }
         .modal-title { font-size: 1.875rem; font-weight: 900; color: white; margin-bottom: 0.5rem; line-height: 1.2; }
-        .modal-description { color: #a1a1aa; font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.6; font-style: italic; border-left: 2px solid #ef4444; padding-left: 1rem; }
         .modal-badges { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; color: #a1a1aa; font-size: 0.875rem; }
         .modal-badge-item { display: flex; align-items: center; gap: 0.5rem; background-color: rgba(39,39,42,0.5); padding: 0.375rem 0.75rem; border-radius: 0.5rem; border: 1px solid #3f3f46; }
-        .modal-badge-item.streaming { border-color: rgba(52,211,153,0.3); }
-        .modal-badge-item.streaming span { color: #a7f3d0; font-weight: 700; }
+        .modal-badge-item.streaming { border-color: rgba(251,191,36,0.3); }
+        .modal-badge-item.streaming span { color: #fde68a; font-weight: 700; }
         .modal-sections { display: flex; flex-direction: column; gap: 2rem; }
         .synopsis-section { padding: 1.5rem 0; border-top: 1px solid #27272a; }
         .synopsis-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #71717a; margin-bottom: 0.75rem; }
         .synopsis-text { color: #d4d4d8; font-size: 0.95rem; line-height: 1.8; margin: 0; }
-        .price-section h3 { display: flex; align-items: center; gap: 0.5rem; color: white; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem; margin-bottom: 1rem; }
-        .price-list { display: grid; gap: 0.75rem; }
-        .price-item { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background-color: #09090b; border-radius: 1rem; border: 1px solid #27272a; transition: border-color 0.2s; }
-        .price-item:hover { border-color: rgba(239,68,68,0.5); }
-        .price-theater { display: flex; align-items: center; gap: 0.75rem; }
-        .theater-icon { width: 2.5rem; height: 2.5rem; background-color: #27272a; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #d4d4d8; }
-        .theater-info p { color: white; font-weight: 700; }
-        .theater-details { color: #71717a; font-size: 0.75rem; display: flex; align-items: center; gap: 0.25rem; }
-        .price-amount { text-align: right; }
-        .price-total { font-size: 1.25rem; font-weight: 900; color: white; }
-        .price-label { font-size: 0.625rem; color: #71717a; text-transform: uppercase; font-weight: 700; }
-        .streaming-projection { padding: 1.5rem; background: linear-gradient(to bottom right, rgba(127,29,29,0.4), rgba(6,78,59,0.4)); border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; }
-        .projection-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-        .projection-title { display: flex; align-items: center; gap: 0.5rem; }
-        .projection-title h3 { color: white; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem; }
-        .projection-content { position: relative; z-index: 10; }
-        .projection-text { color: #d4d4d8; font-size: 0.875rem; margin-bottom: 1rem; line-height: 1.6; }
-        .projection-highlight { color: white; font-weight: 700; }
-        .projection-platform { color: #34d399; font-weight: 700; }
-        .projection-date { color: white; text-decoration: underline; text-decoration-color: rgba(52,211,153,0.5); }
-        .projection-prices { display: flex; gap: 1rem; }
-        .projection-price-card { flex: 1; background-color: rgba(9,9,11,0.5); padding: 0.75rem; border-radius: 0.75rem; border: 1px solid #27272a; }
-        .projection-price-label { font-size: 0.625rem; color: #71717a; text-transform: uppercase; font-weight: 700; margin-bottom: 0.25rem; }
-        .projection-price-value { color: white; font-weight: 700; }
-        .projection-price-note { font-size: 0.75rem; font-weight: normal; color: #a1a1aa; }
-        .projection-blur { position: absolute; top: 0; right: 0; width: 8rem; height: 8rem; background-color: rgba(255,255,255,0.05); border-radius: 50%; filter: blur(48px); margin-right: -4rem; margin-top: -4rem; }
-        .notify-btn { width: 100%; margin-top: 2.5rem; background-color: #dc2626; color: white; font-weight: 700; padding: 1rem; border-radius: 1rem; border: none; cursor: pointer; transition: all 0.2s; box-shadow: 0 10px 20px rgba(220,38,38,0.2); }
-        .notify-btn:hover { background-color: #ef4444; }
-        .notify-btn:active { transform: scale(0.95); }
+
+        /* Auth modal */
+        .auth-modal-overlay { position: fixed; inset: 0; z-index: 3000; display: none; align-items: center; justify-content: center; padding: 1rem; background-color: rgba(9,9,11,0.92); backdrop-filter: blur(6px); }
+        .auth-modal-overlay.active { display: flex; }
+        .auth-modal { background-color: #18181b; border: 1px solid #27272a; border-radius: 1.5rem; padding: 2rem; width: 100%; max-width: 22rem; position: relative; }
+        .auth-modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: #71717a; cursor: pointer; padding: 0.25rem; border-radius: 0.5rem; }
+        .auth-modal-close:hover { color: white; }
+        .auth-modal-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .auth-modal-logo span { font-size: 1.1rem; font-weight: 900; letter-spacing: -0.05em; }
+        .auth-modal h2 { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 0.4rem; }
+        .auth-modal-subtitle { font-size: 0.8rem; color: #71717a; margin-bottom: 1.75rem; }
+        .auth-modal-subtitle a { color: #ef4444; cursor: pointer; font-weight: 600; }
+        .auth-modal-subtitle a:hover { color: #f87171; }
+        .auth-field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+        .auth-field label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #71717a; }
+        .auth-field input { background-color: #09090b; border: 1px solid #27272a; border-radius: 0.6rem; padding: 0.65rem 0.9rem; font-size: 0.875rem; color: white; outline: none; transition: border-color 0.2s; font-family: inherit; width: 100%; }
+        .auth-field input:focus { border-color: #ef4444; box-shadow: 0 0 0 2px rgba(239,68,68,0.15); }
+        .auth-submit { width: 100%; background-color: #dc2626; color: white; font-weight: 700; padding: 0.75rem; border-radius: 0.75rem; border: none; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; font-family: inherit; margin-top: 0.5rem; }
+        .auth-submit:hover { background-color: #ef4444; }
+        .auth-submit:active { transform: scale(0.98); }
+        .auth-error { font-size: 0.78rem; color: #ef4444; background-color: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 0.5rem; padding: 0.6rem 0.75rem; margin-bottom: 1rem; display: none; }
+        .auth-error.visible { display: block; }
+        .auth-success { font-size: 0.78rem; color: #34d399; background-color: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); border-radius: 0.5rem; padding: 0.6rem 0.75rem; margin-bottom: 1rem; display: none; }
+        .auth-success.visible { display: block; }
         svg { display: inline-block; vertical-align: middle; }
-        .filter-panel { display: none; background-color: #18181b; border: 1px solid #27272a; border-radius: 1rem; padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; display: none; flex-direction: column; gap: 1.25rem; }
-        .filter-panel.open { display: flex; }
-        .filter-group-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #71717a; margin-bottom: 0.6rem; }
-        .filter-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .filter-chip { background-color: #09090b; border: 1px solid #27272a; color: #a1a1aa; font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.85rem; border-radius: 999px; cursor: pointer; transition: all 0.15s ease; }
-        .filter-chip:hover { border-color: #ef4444; color: white; }
-        .filter-chip.active { background-color: #dc2626; border-color: #dc2626; color: white; }
-        @media (min-width: 640px) { .search-container { display: block; } .email-form { flex-direction: row; } .movie-grid { grid-template-columns: repeat(2,1fr); } }
-        @media (min-width: 768px) { .nav-links { display: flex; } .hero-title { font-size: 5rem; } .hero-content { padding: 4rem; } .streaming-content { flex-direction: row; align-items: center; } .streaming-text h2 { font-size: 2.25rem; } .footer-main { flex-direction: row; } .footer-brand { align-items: flex-start; } .footer-description { text-align: left; } .footer-bottom { flex-direction: row; } .footer-copyright { text-align: left; } .modal-layout { flex-direction: row; } .modal-poster { width: 40%; height: auto; } .modal-body { padding: 2.5rem; } .modal-title { font-size: 2.25rem; } }
+
+        /* Filter power toggle (Uiverse-style switch) */
+        .filter-power-toggle { --toggle-w: 3.1rem; --toggle-h: 1.7rem; position: relative; display: inline-block; width: var(--toggle-w); height: var(--toggle-h); flex-shrink: 0; }
+        .filter-power-toggle input { opacity: 0; width: 0; height: 0; }
+        .filter-power-slider { position: absolute; cursor: pointer; inset: 0; background-color: #27272a; border: 1px solid #3f3f46; transition: all 0.25s ease; border-radius: 999px; }
+        .filter-power-slider::before { content: ""; position: absolute; height: calc(var(--toggle-h) - 0.5rem); width: calc(var(--toggle-h) - 0.5rem); left: 0.25rem; bottom: 0.23rem; background-color: #a1a1aa; transition: all 0.25s ease; border-radius: 50%; }
+        .filter-power-toggle input:checked + .filter-power-slider { background-color: #dc2626; border-color: #ef4444; box-shadow: 0 0 12px rgba(220,38,38,0.55); }
+        .filter-power-toggle input:checked + .filter-power-slider::before { transform: translateX(calc(var(--toggle-w) - var(--toggle-h))); background-color: #ffffff; }
+        .filter-power-toggle input:focus-visible + .filter-power-slider { box-shadow: 0 0 0 2px rgba(239,68,68,0.4); }
+        .filter-power-wrap { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }
+        .filter-power-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #71717a; transition: color 0.2s; }
+        .filter-power-toggle input:checked ~ .filter-power-label { color: #ef4444; }
+        .filter-sidebar.filters-disabled .filter-group,
+        .filter-sidebar.filters-disabled .filter-results-count,
+        .filter-sidebar.filters-disabled .filter-reset { opacity: 0.35; pointer-events: none; filter: grayscale(0.6); }
+
+        /* Responsive on mutlipe device types */
+        @media (min-width: 640px) { .search-container { display: block; } .movie-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (min-width: 768px) { .nav-links { display: flex; } .hero-title { font-size: 5rem; } .hero-content { padding: 4rem; } .footer-main { flex-direction: row; } .footer-brand { align-items: flex-start; } .footer-description { text-align: left; } .footer-bottom { flex-direction: row; } .footer-copyright { text-align: left; } .modal-layout { flex-direction: row; } .modal-poster { width: 40%; height: auto; } .modal-body { padding: 2.5rem; } .modal-title { font-size: 2.25rem; } }
         @media (min-width: 1024px) { .movie-grid { grid-template-columns: repeat(3,1fr); } }
-        @media (min-width: 1280px) { .movie-grid { grid-template-columns: repeat(4,1fr); } }
+        @media (max-width: 900px) { .content-wrapper { flex-direction: column; } .filter-sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; gap: 1rem; } .filter-sidebar-header { width: 100%; } .filter-group { flex: 1; min-width: 140px; } .filter-results-count { width: 100%; } }
     </style>
 </head>
 <body>
@@ -203,7 +226,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
                     <span class="bell-notification"></span>
                 </button>
-                <div class="user-avatar">JS</div>
+                <div class="user-avatar" id="user-avatar" style="display:none;">
+                    <span id="user-initials">JS</span>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <p class="user-dropdown-name" id="user-dropdown-name">Signed in as</p>
+                        <button class="user-dropdown-btn logout" id="logout-btn">Log Out</button>
+                    </div>
+                </div>
+                <button class="auth-btn auth-btn-login" id="nav-login-btn" style="display:none;">Log In</button>
+                <button class="auth-btn auth-btn-signup" id="nav-signup-btn" style="display:none;">Sign Up</button>
             </div>
         </div>
     </nav>
@@ -235,13 +266,9 @@
         <div class="section-header">
             <div class="section-title">
                 <h2>2026 Lineup</h2>
-                <p class="section-subtitle">Tracking theatrical releases from March to May 2026</p>
+                <p class="section-subtitle">Tracking theatrical releases from July to December 2026</p>
             </div>
             <div class="section-controls">
-                <button class="filter-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-                    Filter
-                </button>
                 <div class="view-toggle">
                     <button class="active">Grid</button>
                     <button>List</button>
@@ -249,68 +276,71 @@
             </div>
         </div>
 
-        
-        <div id="filter-panel" class="filter-panel">
-            <div class="filter-group">
-                <p class="filter-group-label">Genre</p>
-                <div class="filter-chips">
-                    <button class="filter-chip active" data-group="genre" data-value="All">All</button>
-                    <button class="filter-chip" data-group="genre" data-value="Action">Action</button>
-                    <button class="filter-chip" data-group="genre" data-value="Horror">Horror</button>
-                    <button class="filter-chip" data-group="genre" data-value="Sci-Fi">Sci-Fi</button>
-                    <button class="filter-chip" data-group="genre" data-value="Comedy">Comedy</button>
-                    <button class="filter-chip" data-group="genre" data-value="Family">Family</button>
+        <div class="content-wrapper">
+            <!-- Left Filter Sidebar -->
+            <aside class="filter-sidebar" id="filter-sidebar">
+                <div class="filter-sidebar-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                    Filters
+                    <button class="filter-reset" id="filter-reset">Reset All</button>
+                    <div class="filter-power-wrap">
+                        <span class="filter-power-label" id="filter-power-label">On</span>
+                        <label class="filter-power-toggle" title="Turn filters on/off">
+                            <input type="checkbox" id="filter-power-toggle" checked />
+                            <span class="filter-power-slider"></span>
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="filter-group">
-                <p class="filter-group-label">Theatrical Release</p>
-                <div class="filter-chips">
-                    <button class="filter-chip active" data-group="theatrical" data-value="All">All</button>
-                    <button class="filter-chip" data-group="theatrical" data-value="7-8">Jul – Aug</button>
-                    <button class="filter-chip" data-group="theatrical" data-value="9-10">Sep – Oct</button>
-                    <button class="filter-chip" data-group="theatrical" data-value="11-12">Nov – Dec</button>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="filter-genre">Genre</label>
+                    <div class="custom-select-wrapper">
+                        <select id="filter-genre" class="custom-select">
+                            <option value="All">All Genres</option>
+                            <option value="Action">Action</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Sci-Fi">Sci-Fi</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Family">Family</option>
+                        </select>
+                        <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
                 </div>
-            </div>
-            <div class="filter-group">
-                <p class="filter-group-label">Est. Streaming Date</p>
-                <div class="filter-chips">
-                    <button class="filter-chip active" data-group="streaming" data-value="All">All</button>
-                    <button class="filter-chip" data-group="streaming" data-value="10-12">Late 2026</button>
-                    <button class="filter-chip" data-group="streaming" data-value="13-14">Early 2027</button>
-                    <button class="filter-chip" data-group="streaming" data-value="15-16">Mid 2027</button>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="filter-theatrical">Theatrical Release</label>
+                    <div class="custom-select-wrapper">
+                        <select id="filter-theatrical" class="custom-select">
+                            <option value="All">All Dates</option>
+                            <option value="7-8">Jul – Aug 2026</option>
+                            <option value="9-10">Sep – Oct 2026</option>
+                            <option value="11-12">Nov – Dec 2026</option>
+                        </select>
+                        <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
                 </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="filter-streaming">Est. Streaming Date</label>
+                    <div class="custom-select-wrapper">
+                        <select id="filter-streaming" class="custom-select">
+                            <option value="All">All Dates</option>
+                            <option value="10-12">Late 2026</option>
+                            <option value="13-14">Early 2027</option>
+                            <option value="15-16">Mid 2027</option>
+                        </select>
+                        <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                </div>
+
+                <p class="filter-results-count" id="filter-results-count">Showing 12 films</p>
+            </aside>
+
+            <!-- Movie Grid -->
+            <div class="grid-wrapper">
+                <div class="movie-grid" id="movie-grid"></div>
             </div>
         </div>
-
-        <div class="movie-grid" id="movie-grid"></div>
-
-        <section class="streaming-section">
-            <div class="streaming-content">
-                <div class="streaming-text">
-                    <h2>Smart Tracking for the 2026 Box Office</h2>
-                    <p>The 2026 season is packed with major blockbusters. Use CinePrice to track ticket discounts, IMAX availability, and projected streaming dates for the year's biggest hits.</p>
-                    <form class="email-form">
-                        <input type="email" class="email-input" placeholder="Enter your email for alerts" />
-                        <button type="submit" class="email-submit">Get Alerts</button>
-                    </form>
-                </div>
-                <div class="stats-card">
-                    <div class="live-badge">Live Updates</div>
-                    <div class="stats-header">
-                        <div class="stats-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                        </div>
-                        <h3 class="stats-title"> 2026 Trends</h3>
-                    </div>
-                    <div class="stats-list">
-                        <div class="stat-item"><span class="stat-label">Avg Ticket</span><span class="stat-value">$17.85</span></div>
-                        <div class="stat-item"><span class="stat-label">Premium (IMAX) Demand</span><span class="stat-value red">+24%</span></div>
-                        <div class="stat-item"><span class="stat-label">Avg. Digital Window</span><span class="stat-value green">45-60 Days</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="streaming-blur"></div>
-        </section>
     </main>
 
     <footer>
@@ -362,80 +392,142 @@
                 </div>
                 <div class="modal-body">
                     <h2 class="modal-title" id="modal-title"></h2>
-
                     <div class="modal-badges">
                         <div class="modal-badge-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                             <span id="modal-theatrical"></span>
                         </div>
                         <div class="modal-badge-item streaming">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
                             <span id="modal-streaming"></span>
                         </div>
                     </div>
-
                     <div class="modal-sections">
-
-                        <!-- Synopsis -->
                         <section class="synopsis-section">
                             <p class="synopsis-label">Synopsis</p>
                             <p class="synopsis-text" id="modal-synopsis"></p>
                         </section>
-
-
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Login Modal -->
+    <div class="auth-modal-overlay" id="login-modal">
+        <div class="auth-modal">
+            <button class="auth-modal-close" id="login-modal-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="auth-modal-logo">
+                <div class="nav-logo" style="width:1.75rem;height:1.75rem;border-radius:0.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:0.9rem;height:0.9rem;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <span>CINE<span class="brand-highlight">PRICE</span></span>
+            </div>
+            <h2>Welcome back</h2>
+            <p class="auth-modal-subtitle">Don't have an account? <a id="switch-to-signup">Sign up</a></p>
+            <div class="auth-error" id="login-error"></div>
+            <div class="auth-field">
+                <label>Email</label>
+                <input type="email" id="login-email" placeholder="you@example.com" />
+            </div>
+            <div class="auth-field">
+                <label>Password</label>
+                <input type="password" id="login-password" placeholder="••••••••" />
+            </div>
+            <button class="auth-submit" id="login-submit-btn">Log In</button>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="auth-modal-overlay" id="signup-modal">
+        <div class="auth-modal">
+            <button class="auth-modal-close" id="signup-modal-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="auth-modal-logo">
+                <div class="nav-logo" style="width:1.75rem;height:1.75rem;border-radius:0.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:0.9rem;height:0.9rem;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <span>CINE<span class="brand-highlight">PRICE</span></span>
+            </div>
+            <h2>Create an account</h2>
+            <p class="auth-modal-subtitle">Already have an account? <a id="switch-to-login">Log in</a></p>
+            <div class="auth-error" id="signup-error"></div>
+            <div class="auth-success" id="signup-success"></div>
+            <div class="auth-field">
+                <label>Full Name</label>
+                <input type="text" id="signup-name" placeholder="Bhavik Govind" />
+            </div>
+            <div class="auth-field">
+                <label>Email</label>
+                <input type="email" id="signup-email" placeholder="you@example.com" />
+            </div>
+            <div class="auth-field">
+                <label>Password</label>
+                <input type="password" id="signup-password" placeholder="Min. 6 characters" />
+            </div>
+            <div class="auth-field">
+                <label>Confirm Password</label>
+                <input type="password" id="signup-confirm" placeholder="••••••••" />
+            </div>
+            <button class="auth-submit" id="signup-submit-btn">Create Account</button>
+        </div>
+    </div>
+
     <script>
         const MOVIES = [
-            { id: '1',  title: 'Moana (Live-Action)',                        genre: 'Family',    theatricalMonth: 7,  streamingMonth: 10, image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600',      description: "Disney's live-action reimagining of the beloved animated adventure. Moana, a spirited Pacific voyager played by Catherine Laga'aia, answers the ocean's call and sails beyond the reef of her island for the first time. Dwayne Johnson returns as the demigod Maui, with new original songs from Lin-Manuel Miranda.", theatricalDate: 'July 10, 2026',      streamingDate: 'Oct 2026 (Est.)',            platform: 'Disney+',        prices: { theater: [] } },
-            { id: '2',  title: 'The Odyssey',                                genre: 'Action',    theatricalMonth: 7,  streamingMonth: 11, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600',      description: "Christopher Nolan's mythic action epic shot entirely on 70mm IMAX cameras. Matt Damon stars as Odysseus on his years-long journey home after the Trojan War, facing monsters, gods, and impossible odds. The star-studded cast includes Tom Holland, Anne Hathaway, Zendaya, Robert Pattinson, and Charlize Theron.", theatricalDate: 'July 17, 2026',      streamingDate: 'Nov 2026 – Early 2027 (Est.)', platform: 'Peacock',         prices: { theater: [] } },
-            { id: '3',  title: 'Spider-Man: Brand New Day',                  genre: 'Action',    theatricalMonth: 7,  streamingMonth: 13, image: 'https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=600',      description: "Tom Holland swings back as Peter Parker in a world that no longer remembers him. Struggling to balance a secret identity with the pressure of watching friends move on without him, Spider-Man faces a powerful new invisible threat to New York City. Zendaya, Mark Ruffalo, Jon Bernthal, and Sadie Sink co-star.", theatricalDate: 'July 31, 2026',      streamingDate: 'Early 2027 (Est.)',          platform: 'Netflix / Disney+', prices: { theater: [] } },
-            { id: '4',  title: 'Coyote vs. Acme',                            genre: 'Comedy',    theatricalMonth: 8,  streamingMonth: 12, image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600',      description: "After a lifetime of catastrophic product failures, Wile E. Coyote finally sues the ACME Corporation. With a down-on-his-luck lawyer by his side, the iconic Looney Tunes character takes on a corporate giant in this wildly entertaining live-action and animated hybrid comedy. Stars Will Forte and John Cena.", theatricalDate: 'August 28, 2026',    streamingDate: 'Late 2026 (Est.)',           platform: 'TBA',            prices: { theater: [] } },
-            { id: '5',  title: 'Insidious: Out of the Further',              genre: 'Horror',    theatricalMonth: 8,  streamingMonth: 12, image: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600',      description: "The next terrifying chapter in the Insidious franchise. When a new family unknowingly opens a doorway to the supernatural realm known as The Further, an ancient evil is unleashed that threatens to consume everything it touches. Produced by James Wan and Jason Blum, directed by Kate Dolan.", theatricalDate: 'August 21, 2026',    streamingDate: 'Late 2026 (Est.)',           platform: 'Peacock',        prices: { theater: [] } },
-            { id: '6',  title: 'Resident Evil',                              genre: 'Horror',    theatricalMonth: 9,  streamingMonth: 13, image: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=600',      description: "Sony's new big-screen adaptation of the iconic survival horror video game franchise. A group of special operatives investigate Umbrella Corporation's secret facility and find themselves trapped with terrifying biological weapons as a global conspiracy slowly unravels around them.", theatricalDate: 'September 18, 2026', streamingDate: 'Early 2027 (Est.)',          platform: 'TBA',            prices: { theater: [] } },
-            { id: '7',  title: 'Clayface',                                   genre: 'Action',    theatricalMonth: 10, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=600',      description: "DC's shape-shifting villain gets his own standalone film. Fading actor Basil Karlo gains terrifying powers that blur the line between performance and reality. Part superhero origin story and part psychological horror, Clayface is one of DC's most ambitious and unconventional entries yet — directed by Bassam Tariq.", theatricalDate: 'October 23, 2026',   streamingDate: 'Early 2027 (Est.)',          platform: 'Max',            prices: { theater: [] } },
-            { id: '8',  title: 'The Hunger Games: Sunrise on the Reaping',   genre: 'Sci-Fi',    theatricalMonth: 11, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600',      description: "Set 24 years before Katniss Everdeen's story, this prequel follows a young Haymitch Abernathy as he enters the brutal 50th Hunger Games — the second Quarter Quell. Based on Suzanne Collins' novel, it reveals the events that shaped one of the series' most beloved characters.", theatricalDate: 'November 20, 2026',  streamingDate: 'Early 2027 (Est.)',          platform: 'Peacock',        prices: { theater: [] } },
-            { id: '9',  title: 'Godzilla Minus Zero',                        genre: 'Action',    theatricalMonth: 11, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=600',      description: "The sequel to the Academy Award-winning Godzilla Minus One, again directed by Takashi Yamazaki. Set in 1949, two years after the devastating events of the original, Japan faces a new and even more catastrophic chapter of destruction. The first Japanese production filmed entirely for IMAX.", theatricalDate: 'November 6, 2026',   streamingDate: 'Early 2027 (Est.)',          platform: 'TBA',            prices: { theater: [] } },
-            { id: '10', title: 'Dune: Part Three',                           genre: 'Sci-Fi',    theatricalMonth: 12, streamingMonth: 15, image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?q=80&w=600',      description: "Denis Villeneuve completes his landmark sci-fi trilogy with Dune Messiah. Paul Atreides, now Emperor of the Known Universe, faces the devastating consequences of his rise to power as prophecy, politics, and personal sacrifice collide. Timothée Chalamet, Zendaya, and the full ensemble return.", theatricalDate: 'December 18, 2026',  streamingDate: 'Mar – Apr 2027 (Est.)',      platform: 'Max',            prices: { theater: [] } },
-            { id: '11', title: 'Jumanji: Open World',                        genre: 'Comedy',    theatricalMonth: 12, streamingMonth: 15, image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600',      description: "The game is no longer contained — Jumanji breaks free of its console and unleashes chaos into the real world. Dwayne Johnson, Kevin Hart, Jack Black, and Karen Gillan reprise their iconic avatar roles, now running wild in our world as the original players scramble to send them back before it's too late.", theatricalDate: 'December 25, 2026',  streamingDate: 'Mar 2027 (Est.)',            platform: 'Netflix',        prices: { theater: [] } },
-            { id: '12', title: 'Avengers: Doomsday',                         genre: 'Action',    theatricalMonth: 12, streamingMonth: 14, image: 'https://images.unsplash.com/photo-1677926405168-fa86268b7295?q=80&w=600',      description: "The Russo Brothers return to the MCU for the most ambitious Avengers film yet. Robert Downey Jr. is back — not as Tony Stark, but as the terrifying Victor von Doom. Every corner of the MCU collides: Avengers, Wakandans, Fantastic Four, Thunderbolts, and X-Men must unite against a threat that could unravel reality itself.", theatricalDate: 'December 18, 2026',  streamingDate: 'Feb – Mar 2027 (Est.)',      platform: 'Disney+',        prices: { theater: [] } }
+            { id: '1',  title: 'Moana (Live-Action)',                       genre: 'Family',  theatricalMonth: 7,  streamingMonth: 10, image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600',      description: "Disney's live-action reimagining of the beloved animated adventure. Moana, a spirited Pacific voyager played by Catherine Laga'aia, answers the ocean's call and sails beyond the reef of her island for the first time. Dwayne Johnson returns as the demigod Maui, with new original songs from Lin-Manuel Miranda.", theatricalDate: 'July 10, 2026',      streamingDate: 'Oct 2026 (Est.)',              platform: 'Disney+',         prices: { theater: [] } },
+            { id: '2',  title: 'The Odyssey',                               genre: 'Action',  theatricalMonth: 7,  streamingMonth: 11, image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600',      description: "Christopher Nolan's mythic action epic shot entirely on 70mm IMAX cameras. Matt Damon stars as Odysseus on his years-long journey home after the Trojan War, facing monsters, gods, and impossible odds. The star-studded cast includes Tom Holland, Anne Hathaway, Zendaya, Robert Pattinson, and Charlize Theron.", theatricalDate: 'July 17, 2026',      streamingDate: 'Nov 2026 – Early 2027 (Est.)', platform: 'Peacock',          prices: { theater: [] } },
+            { id: '3',  title: 'Spider-Man: Brand New Day',                 genre: 'Action',  theatricalMonth: 7,  streamingMonth: 13, image: 'https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=600',      description: "Tom Holland swings back as Peter Parker in a world that no longer remembers him. Struggling to balance a secret identity with the pressure of watching friends move on without him, Spider-Man faces a powerful new invisible threat to New York City. Zendaya, Mark Ruffalo, Jon Bernthal, and Sadie Sink co-star.", theatricalDate: 'July 31, 2026',      streamingDate: 'Early 2027 (Est.)',            platform: 'Netflix / Disney+', prices: { theater: [] } },
+            { id: '4',  title: 'Coyote vs. Acme',                           genre: 'Comedy',  theatricalMonth: 8,  streamingMonth: 12, image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600',      description: "After a lifetime of catastrophic product failures, Wile E. Coyote finally sues the ACME Corporation. With a down-on-his-luck lawyer by his side, the iconic Looney Tunes character takes on a corporate giant in this wildly entertaining live-action and animated hybrid comedy. Stars Will Forte and John Cena.", theatricalDate: 'August 28, 2026',    streamingDate: 'Late 2026 (Est.)',             platform: 'TBA',             prices: { theater: [] } },
+            { id: '5',  title: 'Insidious: Out of the Further',             genre: 'Horror',  theatricalMonth: 8,  streamingMonth: 12, image: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600',      description: "The next terrifying chapter in the Insidious franchise. When a new family unknowingly opens a doorway to the supernatural realm known as The Further, an ancient evil is unleashed that threatens to consume everything it touches. Produced by James Wan and Jason Blum, directed by Kate Dolan.", theatricalDate: 'August 21, 2026',    streamingDate: 'Late 2026 (Est.)',             platform: 'Peacock',         prices: { theater: [] } },
+            { id: '6',  title: 'Resident Evil',                             genre: 'Horror',  theatricalMonth: 9,  streamingMonth: 13, image: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=600',      description: "Sony's new big-screen adaptation of the iconic survival horror video game franchise. A group of special operatives investigate Umbrella Corporation's secret facility and find themselves trapped with terrifying biological weapons as a global conspiracy slowly unravels around them.", theatricalDate: 'September 18, 2026', streamingDate: 'Early 2027 (Est.)',            platform: 'TBA',             prices: { theater: [] } },
+            { id: '7',  title: 'Clayface',                                  genre: 'Action',  theatricalMonth: 10, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=600',      description: "DC's shape-shifting villain gets his own standalone film. Fading actor Basil Karlo gains terrifying powers that blur the line between performance and reality. Part superhero origin story and part psychological horror, Clayface is one of DC's most ambitious and unconventional entries yet — directed by Bassam Tariq.", theatricalDate: 'October 23, 2026',   streamingDate: 'Early 2027 (Est.)',            platform: 'Max',             prices: { theater: [] } },
+            { id: '8',  title: 'The Hunger Games: Sunrise on the Reaping',  genre: 'Sci-Fi',  theatricalMonth: 11, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600',      description: "Set 24 years before Katniss Everdeen's story, this prequel follows a young Haymitch Abernathy as he enters the brutal 50th Hunger Games — the second Quarter Quell. Based on Suzanne Collins' novel, it reveals the events that shaped one of the series' most beloved characters.", theatricalDate: 'November 20, 2026',  streamingDate: 'Early 2027 (Est.)',            platform: 'Peacock',         prices: { theater: [] } },
+            { id: '9',  title: 'Godzilla Minus Zero',                       genre: 'Action',  theatricalMonth: 11, streamingMonth: 13, image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=600',      description: "The sequel to the Academy Award-winning Godzilla Minus One, again directed by Takashi Yamazaki. Set in 1949, two years after the devastating events of the original, Japan faces a new and even more catastrophic chapter of destruction. The first Japanese production filmed entirely for IMAX.", theatricalDate: 'November 6, 2026',   streamingDate: 'Early 2027 (Est.)',            platform: 'TBA',             prices: { theater: [] } },
+            { id: '10', title: 'Dune: Part Three',                          genre: 'Sci-Fi',  theatricalMonth: 12, streamingMonth: 15, image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?q=80&w=600',      description: "Denis Villeneuve completes his landmark sci-fi trilogy with Dune Messiah. Paul Atreides, now Emperor of the Known Universe, faces the devastating consequences of his rise to power as prophecy, politics, and personal sacrifice collide. Timothée Chalamet, Zendaya, and the full ensemble return.", theatricalDate: 'December 18, 2026',  streamingDate: 'Mar – Apr 2027 (Est.)',        platform: 'Max',             prices: { theater: [] } },
+            { id: '11', title: 'Jumanji: Open World',                       genre: 'Comedy',  theatricalMonth: 12, streamingMonth: 15, image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600',      description: "The game is no longer contained — Jumanji breaks free of its console and unleashes chaos into the real world. Dwayne Johnson, Kevin Hart, Jack Black, and Karen Gillan reprise their iconic avatar roles, now running wild in our world as the original players scramble to send them back before it's too late.", theatricalDate: 'December 25, 2026',  streamingDate: 'Mar 2027 (Est.)',              platform: 'Netflix',         prices: { theater: [] } },
+            { id: '12', title: 'Avengers: Doomsday',                        genre: 'Action',  theatricalMonth: 12, streamingMonth: 14, image: 'https://images.unsplash.com/photo-1677926405168-fa86268b7295?q=80&w=600',      description: "The Russo Brothers return to the MCU for the most ambitious Avengers film yet. Robert Downey Jr. is back — not as Tony Stark, but as the terrifying Victor von Doom. Every corner of the MCU collides: Avengers, Wakandans, Fantastic Four, Thunderbolts, and X-Men must unite against a threat that could unravel reality itself.", theatricalDate: 'December 18, 2026',  streamingDate: 'Feb – Mar 2027 (Est.)',        platform: 'Disney+',         prices: { theater: [] } }
         ];
 
         let currentMovie = null;
         let activeFilters = { genre: 'All', theatrical: 'All', streaming: 'All' };
+        let filtersEnabled = true;
 
         function applyFilters() {
             let filtered = MOVIES;
-            if (activeFilters.genre !== 'All') {
-                filtered = filtered.filter(m => m.genre === activeFilters.genre);
+            if (filtersEnabled) {
+                if (activeFilters.genre !== 'All') filtered = filtered.filter(m => m.genre === activeFilters.genre);
+                if (activeFilters.theatrical !== 'All') {
+                    const [min, max] = activeFilters.theatrical.split('-').map(Number);
+                    filtered = filtered.filter(m => m.theatricalMonth >= min && m.theatricalMonth <= max);
+                }
+                if (activeFilters.streaming !== 'All') {
+                    const [min, max] = activeFilters.streaming.split('-').map(Number);
+                    filtered = filtered.filter(m => m.streamingMonth >= min && m.streamingMonth <= max);
+                }
+                const search = document.getElementById('search-input').value.toLowerCase();
+                if (search) filtered = filtered.filter(m => m.title.toLowerCase().includes(search));
             }
-            if (activeFilters.theatrical !== 'All') {
-                const [min, max] = activeFilters.theatrical.split('-').map(Number);
-                filtered = filtered.filter(m => m.theatricalMonth >= min && m.theatricalMonth <= max);
-            }
-            if (activeFilters.streaming !== 'All') {
-                const [min, max] = activeFilters.streaming.split('-').map(Number);
-                filtered = filtered.filter(m => m.streamingMonth >= min && m.streamingMonth <= max);
-            }
-            const search = document.getElementById('search-input').value.toLowerCase();
-            if (search) filtered = filtered.filter(m => m.title.toLowerCase().includes(search));
+            document.getElementById('filter-results-count').textContent = `Showing ${filtered.length} film${filtered.length !== 1 ? 's' : ''}`;
             renderMovies(filtered);
         }
 
         function renderMovies(moviesToRender = MOVIES) {
             const grid = document.getElementById('movie-grid');
+            if (moviesToRender.length === 0) {
+                grid.innerHTML = '<div class="no-results"><p>No films match your filters</p><p>Try adjusting or resetting your selection</p></div>';
+                return;
+            }
             grid.innerHTML = moviesToRender.map(movie => `
                 <div class="movie-card" data-movie-id="${movie.id}">
                     <div class="movie-poster">
                         <img src="${movie.image}" alt="${movie.title}" />
                         <div class="poster-gradient"></div>
                         <div class="movie-badge">Coming Soon</div>
+                        <div class="genre-badge">${movie.genre}</div>
                     </div>
                     <div class="movie-info">
                         <h3 class="movie-title">${movie.title}</h3>
@@ -465,14 +557,12 @@
         function openModal(movieId) {
             currentMovie = MOVIES.find(m => m.id === movieId);
             if (!currentMovie) return;
-
             document.getElementById('modal-image').src = currentMovie.image;
             document.getElementById('modal-image').alt = currentMovie.title;
             document.getElementById('modal-title').textContent = currentMovie.title;
             document.getElementById('modal-synopsis').textContent = currentMovie.description;
             document.getElementById('modal-theatrical').textContent = `${currentMovie.theatricalDate} (Theatrical)`;
             document.getElementById('modal-streaming').innerHTML = `EST. ${currentMovie.streamingDate} (${currentMovie.platform})`;
-
             document.getElementById('modal-overlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -488,25 +578,145 @@
         document.getElementById('search-input').addEventListener('input', applyFilters);
         document.querySelector('[data-movie-id="1"]').addEventListener('click', () => openModal('12'));
 
-        // Filter panel toggle
-        const filterBtn = document.querySelector('.filter-btn');
-        const filterPanel = document.getElementById('filter-panel');
-        filterBtn.addEventListener('click', () => {
-            filterPanel.classList.toggle('open');
+        document.getElementById('filter-genre').addEventListener('change', (e) => { activeFilters.genre = e.target.value; applyFilters(); });
+        document.getElementById('filter-theatrical').addEventListener('change', (e) => { activeFilters.theatrical = e.target.value; applyFilters(); });
+        document.getElementById('filter-streaming').addEventListener('change', (e) => { activeFilters.streaming = e.target.value; applyFilters(); });
+
+        document.getElementById('filter-reset').addEventListener('click', () => {
+            activeFilters = { genre: 'All', theatrical: 'All', streaming: 'All' };
+            document.getElementById('filter-genre').value = 'All';
+            document.getElementById('filter-theatrical').value = 'All';
+            document.getElementById('filter-streaming').value = 'All';
+            document.getElementById('search-input').value = '';
+            applyFilters();
         });
 
-        // Filter chips
-        document.querySelectorAll('.filter-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                const group = chip.getAttribute('data-group');
-                document.querySelectorAll(`.filter-chip[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                activeFilters[group] = chip.getAttribute('data-value');
-                applyFilters();
-            });
+        // Filter power on/off toggle — defaults to ON
+        const filterPowerToggle = document.getElementById('filter-power-toggle');
+        const filterSidebarEl = document.getElementById('filter-sidebar');
+        const filterPowerLabel = document.getElementById('filter-power-label');
+
+        function updateFilterPowerUI() {
+            filterSidebarEl.classList.toggle('filters-disabled', !filtersEnabled);
+            filterPowerLabel.textContent = filtersEnabled ? 'On' : 'Off';
+        }
+
+        filterPowerToggle.addEventListener('change', (e) => {
+            filtersEnabled = e.target.checked;
+            updateFilterPowerUI();
+            applyFilters();
         });
 
+        updateFilterPowerUI();
         renderMovies();
+
+        // ── Authentication SYSTEM ──────────────────────────────────────────────
+
+        let currentUser = JSON.parse(localStorage.getItem('cineprice_user') || 'null');
+
+        function getUsers() { return JSON.parse(localStorage.getItem('cineprice_users') || '{}'); }
+        function saveUsers(u) { localStorage.setItem('cineprice_users', JSON.stringify(u)); }
+
+        function updateNavAuth() {
+            const avatar   = document.getElementById('user-avatar');
+            const loginBtn = document.getElementById('nav-login-btn');
+            const signupBtn = document.getElementById('nav-signup-btn');
+            if (currentUser) {
+                avatar.style.display = 'flex';
+                loginBtn.style.display = 'none';
+                signupBtn.style.display = 'none';
+                const initials = currentUser.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+                document.getElementById('user-initials').textContent = initials;
+                document.getElementById('user-dropdown-name').textContent = currentUser.name;
+            } else {
+                avatar.style.display = 'none';
+                loginBtn.style.display = 'block';
+                signupBtn.style.display = 'block';
+            }
+        }
+
+        function openAuthModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeAuthModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+
+        // Nav buttons
+        document.getElementById('nav-login-btn').addEventListener('click', () => openAuthModal('login-modal'));
+        document.getElementById('nav-signup-btn').addEventListener('click', () => openAuthModal('signup-modal'));
+
+        // Close buttons
+        document.getElementById('login-modal-close').addEventListener('click', () => closeAuthModal('login-modal'));
+        document.getElementById('signup-modal-close').addEventListener('click', () => closeAuthModal('signup-modal'));
+
+        // Switch between modals
+        document.getElementById('switch-to-signup').addEventListener('click', () => { closeAuthModal('login-modal'); openAuthModal('signup-modal'); });
+        document.getElementById('switch-to-login').addEventListener('click', () => { closeAuthModal('signup-modal'); openAuthModal('login-modal'); });
+
+        // Close on overlay click
+        document.getElementById('login-modal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeAuthModal('login-modal'); });
+        document.getElementById('signup-modal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeAuthModal('signup-modal'); });
+
+        // Avatar dropdown toggle
+        document.getElementById('user-avatar').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('user-dropdown').classList.toggle('open');
+        });
+        document.addEventListener('click', () => document.getElementById('user-dropdown').classList.remove('open'));
+
+        // Log out
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            currentUser = null;
+            localStorage.removeItem('cineprice_user');
+            updateNavAuth();
+        });
+
+        // User sign up
+        document.getElementById('signup-submit-btn').addEventListener('click', () => {
+            const name     = document.getElementById('signup-name').value.trim();
+            const email    = document.getElementById('signup-email').value.trim().toLowerCase();
+            const password = document.getElementById('signup-password').value;
+            const confirm  = document.getElementById('signup-confirm').value;
+            const errEl    = document.getElementById('signup-error');
+            const sucEl    = document.getElementById('signup-success');
+            errEl.classList.remove('visible'); sucEl.classList.remove('visible');
+
+            if (!name || !email || !password || !confirm) { errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('visible'); return; }
+            if (password.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('visible'); return; }
+            if (password !== confirm) { errEl.textContent = 'Passwords do not match.'; errEl.classList.add('visible'); return; }
+
+            const users = getUsers();
+            if (users[email]) { errEl.textContent = 'An account with this email already exists.'; errEl.classList.add('visible'); return; }
+
+            users[email] = { name, email, password };
+            saveUsers(users);
+            currentUser = { name, email };
+            localStorage.setItem('cineprice_user', JSON.stringify(currentUser));
+            sucEl.textContent = `Account created! Welcome, ${name}.`;
+            sucEl.classList.add('visible');
+            setTimeout(() => { closeAuthModal('signup-modal'); updateNavAuth(); }, 1200);
+        });
+
+        //User Log in
+        document.getElementById('login-submit-btn').addEventListener('click', () => {
+            const email    = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+            const errEl    = document.getElementById('login-error');
+            errEl.classList.remove('visible');
+
+            if (!email || !password) { errEl.textContent = 'Please enter your email and password.'; errEl.classList.add('visible'); return; }
+
+            const users = getUsers();
+            if (!users[email] || users[email].password !== password) { errEl.textContent = 'Incorrect email or password.'; errEl.classList.add('visible'); return; }
+
+            currentUser = { name: users[email].name, email };
+            localStorage.setItem('cineprice_user', JSON.stringify(currentUser));
+            closeAuthModal('login-modal');
+            updateNavAuth();
+        });
+
+        // Enter key support
+        ['login-email','login-password'].forEach(id => document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-submit-btn').click(); }));
+        ['signup-name','signup-email','signup-password','signup-confirm'].forEach(id => document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('signup-submit-btn').click(); }));
+
+        updateNavAuth();
     </script>
 </body>
 </html>
