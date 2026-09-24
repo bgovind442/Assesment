@@ -17,27 +17,7 @@
         .nav-brand-text { font-size: 1.25rem; font-weight: 900; letter-spacing: -0.05em; }
         .brand-highlight { color: #8b5cf6; }
         .nav-actions { display: flex; align-items: center; gap: 1rem; }
-        /* The Favourites navigation button I have added in Iteration 4 */
-.nav-favourites-btn {
-    background: none;
-    border: none;
-    color: #a1a1aa;
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    transition: color 0.2s;
-}
-
-.nav-favourites-btn:hover {
-    color: white;
-}
-
-.nav-favourites-btn.active {
-    color: #8b5cf6;
-}
-
-.search-container { position: relative; display: none; }
+        .search-container { position: relative; display: none; }
         .search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #71717a; }
         #search-input { background-color: #18181b; border: 1px solid #27272a; border-radius: 9999px; padding: 0.5rem 1rem 0.5rem 2.5rem; font-size: 0.875rem; color: white; width: 24rem; outline: none; transition: all 0.2s; }
         #search-input:focus { border-color: #8b5cf6; box-shadow: 0 0 0 2px rgba(139,92,246,0.2); }
@@ -79,6 +59,12 @@
         .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
         .section-title h2 { font-size: 1.875rem; font-weight: 900; color: white; margin-bottom: 0.5rem; }
         .section-subtitle { color: #71717a; font-size: 0.875rem; font-weight: 500; }
+        .section-controls { display: flex; align-items: center; gap: 0.75rem; }
+        .view-toggle { display: flex; background-color: #18181b; padding: 0.25rem; border-radius: 0.75rem; border: 1px solid #27272a; }
+        .view-toggle button { padding: 0.375rem 0.75rem; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; border-radius: 0.5rem; }
+        .view-toggle button.active { background-color: #27272a; color: white; }
+        .view-toggle button:not(.active) { background: transparent; color: #71717a; }
+        .view-toggle button:not(.active):hover { color: white; }
 
         /* Sidebar + grid layout */
         .content-wrapper { display: flex; gap: 2rem; align-items: flex-start; }
@@ -96,11 +82,11 @@
         .select-arrow { position: absolute; right: 0.65rem; top: 50%; transform: translateY(-50%); color: #71717a; pointer-events: none; width: 14px; height: 14px; }
         .filter-results-count { font-size: 0.72rem; color: #52525b; font-weight: 500; border-top: 1px solid #27272a; padding-top: 1rem; }
 
-        
+        /* Grid */
         .grid-wrapper { flex: 1; min-width: 0; }
         .movie-grid { display: grid; grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 6rem; }
 
-        
+        /* Cards */
         .movie-card { position: relative; background-color: #18181b; border-radius: 1.25rem; overflow: hidden; cursor: pointer; transition: all 0.25s ease; border: 1px solid #27272a; display: flex; flex-direction: column; height: 100%; }
         .movie-card:hover { transform: translateY(-4px); border-color: #8b5cf6; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .movie-poster { position: relative; aspect-ratio: 2/3; overflow: hidden; border-radius: 1.25rem 1.25rem 0 0; }
@@ -110,14 +96,6 @@
         .movie-badge { position: absolute; top: 1rem; left: 1rem; background-color: #7c3aed; color: white; font-size: 0.6rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em; }
         .genre-badge { position: absolute; top: 1rem; right: 1rem; background-color: rgba(9,9,11,0.75); color: #a1a1aa; font-size: 0.6rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid #3f3f46; backdrop-filter: blur(4px); }
         .movie-info { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
-        .movie-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
-        .favorite-btn { background: none; border: none; padding: 0.15rem; margin-top: 0.1rem; color: #71717a; cursor: pointer; flex-shrink: 0; transition: color 0.2s, transform 0.15s; }
-        .favorite-btn:hover { color: #f87171; transform: scale(1.15); }
-        .favorite-btn.active { color: #f87171; }
-        .favorite-btn:active { transform: scale(0.9); }
-        .favorites-banner { display: none; align-items: center; justify-content: space-between; gap: 1rem; background-color: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); border-radius: 0.85rem; padding: 0.85rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: #fca5a5; font-weight: 600; }
-        .favorites-banner-reset { background-color: rgba(248,113,113,0.15); color: #fca5a5; border: 1px solid rgba(248,113,113,0.35); padding: 0.4rem 0.9rem; border-radius: 0.6rem; font-weight: 700; font-size: 0.72rem; cursor: pointer; transition: all 0.2s; font-family: inherit; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; }
-        .favorites-banner-reset:hover { background-color: rgba(248,113,113,0.28); }
         .movie-title { color: white; font-weight: 800; font-size: 1rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .movie-description { color: #71717a; font-size: 0.78rem; line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
         .movie-dates { margin-top: 0.75rem; padding-top: 1rem; border-top: 1px solid #27272a; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -134,7 +112,7 @@
         .no-results { grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: #52525b; }
         .no-results p:first-child { font-size: 1.1rem; font-weight: 700; color: #71717a; margin-bottom: 0.5rem; }
 
-        
+        /* Footer */
         footer { background-color: #09090b; border-top: 1px solid #18181b; padding: 4rem 1.5rem; }
         .footer-container { max-width: 80rem; margin: 0 auto; }
         .footer-main { display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 3rem; margin-bottom: 3rem; }
@@ -147,8 +125,6 @@
         .footer-links { display: flex; gap: 3rem; font-size: 0.875rem; }
         .footer-attribution { max-width: 32rem; text-align: center; }
         .footer-attribution-text { color: #71717a; font-size: 0.8rem; line-height: 1.7; margin-top: 0.75rem; }
-        .footer-attribution-text a { color: #a78bfa; text-decoration: none; font-weight: 600; }
-        .footer-attribution-text a:hover { text-decoration: underline; }
         .footer-column { display: flex; flex-direction: column; gap: 1rem; }
         .footer-column-title { color: white; font-weight: 700; }
         .footer-column a { color: #71717a; text-decoration: none; transition: color 0.2s; }
@@ -159,7 +135,7 @@
         .social-icon { width: 1.25rem; height: 1.25rem; background-color: #27272a; border-radius: 50%; cursor: pointer; transition: background-color 0.2s; }
         .social-icon:hover { background-color: #7c3aed; }
 
-        /
+        /* Modal */
         .modal-overlay { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; padding: 1rem; background-color: rgba(9,9,11,0.9); backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
         .modal-content { position: relative; background-color: #18181b; width: 100%; max-width: 64rem; max-height: 90vh; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 20px 80px rgba(0,0,0,0.5); display: flex; flex-direction: column; border: 1px solid #27272a; }
@@ -179,7 +155,7 @@
         .synopsis-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #71717a; margin-bottom: 0.75rem; }
         .synopsis-text { color: #d4d4d8; font-size: 0.95rem; line-height: 1.8; margin: 0; }
 
-        /* Authentication modal */
+        /* Auth modal */
         .auth-modal-overlay { position: fixed; inset: 0; z-index: 3000; display: none; align-items: center; justify-content: center; padding: 1rem; background-color: rgba(9,9,11,0.92); backdrop-filter: blur(6px); }
         .auth-modal-overlay.active { display: flex; }
         .auth-modal { background-color: #18181b; border: 1px solid #27272a; border-radius: 1.5rem; padding: 2rem; width: 100%; max-width: 22rem; position: relative; }
@@ -204,7 +180,7 @@
         .auth-success.visible { display: block; }
         svg { display: inline-block; vertical-align: middle; }
 
-        /* Filtering power toggle from the Uiverse-style switch */
+        /* Filter power toggle (Uiverse-style switch) */
         .filter-power-toggle { --toggle-w: 3.1rem; --toggle-h: 1.7rem; position: relative; display: inline-block; width: var(--toggle-w); height: var(--toggle-h); flex-shrink: 0; }
         .filter-power-toggle input { opacity: 0; width: 0; height: 0; }
         .filter-power-slider { position: absolute; cursor: pointer; inset: 0; background-color: #27272a; border: 1px solid #3f3f46; transition: all 0.25s ease; border-radius: 999px; }
@@ -239,9 +215,6 @@
                 </div>
             </div>
             <div class="nav-actions">
-            <button class="nav-favourites-btn" id="nav-favourites-btn" aria-pressed="false">
-                Favourites
-            </button>
                 <div class="search-container">
                     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                     <input type="text" id="search-input" placeholder="Search 2026 movies..." />
@@ -254,7 +227,6 @@
                     <span id="user-initials">JS</span>
                     <div class="user-dropdown" id="user-dropdown">
                         <p class="user-dropdown-name" id="user-dropdown-name">Signed in as</p>
-                        
                         <button class="user-dropdown-btn logout" id="logout-btn">Log Out</button>
                     </div>
                 </div>
@@ -283,6 +255,7 @@
                         Track Release
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
+                    <button class="btn-secondary">Official Teaser</button>
                 </div>
             </div>
         </section>
@@ -291,6 +264,12 @@
             <div class="section-title">
                 <h2>2026 Lineup</h2>
                 <p class="section-subtitle">Tracking theatrical releases from July to December 2026</p>
+            </div>
+            <div class="section-controls">
+                <div class="view-toggle">
+                    <button class="active">Grid</button>
+                    <button>List</button>
+                </div>
             </div>
         </div>
 
@@ -356,10 +335,6 @@
 
             <!-- Movie Grid -->
             <div class="grid-wrapper">
-                <div class="favorites-banner" id="favorites-banner">
-                    <span id="favorites-banner-text"></span>
-                    <button class="favorites-banner-reset" id="favorites-banner-reset" type="button">Show All Films</button>
-                </div>
                 <div class="movie-grid" id="movie-grid"></div>
             </div>
         </div>
@@ -378,8 +353,8 @@
                     <p class="footer-description">Your ultimate companion for tracking 2026 theatrical releases and streaming transitions.</p>
                 </div>
                 <div class="footer-attribution">
-                    <span class="footer-column-title">Image Attribution</span>
-                    <p class="footer-attribution-text">All movie images on this site are sourced from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>, a free stock photo platform where photographers share their work for anyone to use. Photos published under the Unsplash License are free of copyright restrictions, meaning they can be copied, modified, and used for personal or commercial projects without asking permission or crediting the photographer, though credit is always appreciated.</p>
+                    <span class="footer-column-title">Image &amp; Content Attribution</span>
+                    <p class="footer-attribution-text">I will do this by adding a section of text at the bottom of my website explaining how I have used the images appropriately. This section will identify the sources of movie images and other content used throughout CineTracker. This addresses the relevant implication of Legal and intellectual property (IP), as CineTracker uses movie-related images and information that may belong to other creators or companies. Clearly identifying my sources demonstrates that I have considered the rights of content creators and helps ensure that the content in my outcome is used appropriately. It also makes the website more transparent for users by showing where the content has come from.</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -507,46 +482,9 @@
         let currentMovie = null;
         let activeFilters = { genre: 'All', theatrical: 'All', streaming: 'All' };
         let filtersEnabled = true;
-        let showingFavoritesOnly = false;
-        let currentUser = JSON.parse(localStorage.getItem('cinetracker_user') || 'null');
-
-        // ── Favourites ──────────────────────────────────────────────────────────
-        function getFavoritesMap() { return JSON.parse(localStorage.getItem('cinetracker_favorites') || '{}'); }
-        function saveFavoritesMap(map) { localStorage.setItem('cinetracker_favorites', JSON.stringify(map)); }
-        function getFavorites() {
-            if (!currentUser) return [];
-            const map = getFavoritesMap();
-            return map[currentUser.email] || [];
-        }
-        function isFavorite(movieId) { return getFavorites().includes(movieId); }
-        function toggleFavorite(movieId) {
-            if (!currentUser) { openAuthModal('login-modal'); return; }
-            const map = getFavoritesMap();
-            const list = map[currentUser.email] || [];
-            const idx = list.indexOf(movieId);
-            if (idx === -1) list.push(movieId); else list.splice(idx, 1);
-            map[currentUser.email] = list;
-            saveFavoritesMap(map);
-            applyFilters();
-        }
-        function updateFavoritesBanner() {
-            const banner = document.getElementById('favorites-banner');
-            if (!banner) return;
-            if (showingFavoritesOnly) {
-                banner.style.display = 'flex';
-                const favs = getFavorites();
-                document.getElementById('favorites-banner-text').textContent = `Showing your ${favs.length} favourite film${favs.length !== 1 ? 's' : ''}`;
-            } else {
-                banner.style.display = 'none';
-            }
-        }
 
         function applyFilters() {
             let filtered = MOVIES;
-            if (showingFavoritesOnly) {
-                const favs = getFavorites();
-                filtered = filtered.filter(m => favs.includes(m.id));
-            }
             if (filtersEnabled) {
                 if (activeFilters.genre !== 'All') filtered = filtered.filter(m => m.genre === activeFilters.genre);
                 if (activeFilters.theatrical !== 'All') {
@@ -561,21 +499,16 @@
                 if (search) filtered = filtered.filter(m => m.title.toLowerCase().includes(search));
             }
             document.getElementById('filter-results-count').textContent = `Showing ${filtered.length} film${filtered.length !== 1 ? 's' : ''}`;
-            updateFavoritesBanner();
             renderMovies(filtered);
         }
 
         function renderMovies(moviesToRender = MOVIES) {
             const grid = document.getElementById('movie-grid');
             if (moviesToRender.length === 0) {
-                grid.innerHTML = showingFavoritesOnly
-                    ? '<div class="no-results"><p>No favourite films yet</p><p>Tap the heart on a film to save it here</p></div>'
-                    : '<div class="no-results"><p>No films match your filters</p><p>Try adjusting or resetting your selection</p></div>';
+                grid.innerHTML = '<div class="no-results"><p>No films match your filters</p><p>Try adjusting or resetting your selection</p></div>';
                 return;
             }
-            grid.innerHTML = moviesToRender.map(movie => {
-                const fav = isFavorite(movie.id);
-                return `
+            grid.innerHTML = moviesToRender.map(movie => `
                 <div class="movie-card" data-movie-id="${movie.id}">
                     <div class="movie-poster">
                         <img src="${movie.image}" alt="${movie.title}" />
@@ -584,12 +517,7 @@
                         <div class="genre-badge">${movie.genre}</div>
                     </div>
                     <div class="movie-info">
-                        <div class="movie-title-row">
-                            <h3 class="movie-title">${movie.title}</h3>
-                            <button class="favorite-btn${fav ? ' active' : ''}" data-movie-id="${movie.id}" aria-label="${fav ? 'Remove from favourites' : 'Add to favourites'}" title="${fav ? 'Remove from favourites' : 'Add to favourites'}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="${fav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
-                            </button>
-                        </div>
+                        <h3 class="movie-title">${movie.title}</h3>
                         <p class="movie-description">${movie.description}</p>
                         <div class="movie-dates">
                             <div class="date-row">
@@ -607,15 +535,9 @@
                         </div>
                     </div>
                 </div>
-            `; }).join('');
+            `).join('');
             document.querySelectorAll('.movie-card').forEach(card => {
                 card.addEventListener('click', () => openModal(card.getAttribute('data-movie-id')));
-            });
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    toggleFavorite(btn.getAttribute('data-movie-id'));
-                });
             });
         }
 
@@ -677,6 +599,8 @@
 
         // ── Authentication SYSTEM ──────────────────────────────────────────────
 
+        let currentUser = JSON.parse(localStorage.getItem('cinetracker_user') || 'null');
+
         function getUsers() { return JSON.parse(localStorage.getItem('cinetracker_users') || '{}'); }
         function saveUsers(u) { localStorage.setItem('cinetracker_users', JSON.stringify(u)); }
 
@@ -724,43 +648,11 @@
         });
         document.addEventListener('click', () => document.getElementById('user-dropdown').classList.remove('open'));
 
-        // Favourites navigation
-        document.getElementById('nav-favourites-btn').addEventListener('click', () => {
-            if (!currentUser) {
-                openAuthModal('login-modal');
-                return;
-            }
-
-            showingFavoritesOnly = !showingFavoritesOnly;
-
-            const favouritesButton = document.getElementById('nav-favourites-btn');
-            favouritesButton.classList.toggle('active', showingFavoritesOnly);
-            favouritesButton.setAttribute('aria-pressed', showingFavoritesOnly);
-
-            applyFilters();
-            document.getElementById('movie-grid').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        });
-
         // Log out
         document.getElementById('logout-btn').addEventListener('click', () => {
             currentUser = null;
-            showingFavoritesOnly = false;
             localStorage.removeItem('cinetracker_user');
-
-            const favouritesButton = document.getElementById('nav-favourites-btn');
-            favouritesButton.classList.remove('active');
-            favouritesButton.setAttribute('aria-pressed', 'false');
-
             updateNavAuth();
-            applyFilters();
-        });
-
-        document.getElementById('favorites-banner-reset').addEventListener('click', () => {
-            showingFavoritesOnly = false;
-            applyFilters();
         });
 
         // User sign up
@@ -786,7 +678,7 @@
             localStorage.setItem('cinetracker_user', JSON.stringify(currentUser));
             sucEl.textContent = `Account created! Welcome, ${name}.`;
             sucEl.classList.add('visible');
-            setTimeout(() => { closeAuthModal('signup-modal'); updateNavAuth(); applyFilters(); }, 1200);
+            setTimeout(() => { closeAuthModal('signup-modal'); updateNavAuth(); }, 1200);
         });
 
         //User Log in
@@ -805,7 +697,6 @@
             localStorage.setItem('cinetracker_user', JSON.stringify(currentUser));
             closeAuthModal('login-modal');
             updateNavAuth();
-            applyFilters();
         });
 
         // Enter key support
