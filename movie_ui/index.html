@@ -17,6 +17,9 @@
         .nav-brand-text { font-size: 1.25rem; font-weight: 900; letter-spacing: -0.05em; }
         .brand-highlight { color: #8b5cf6; }
         .nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .nav-favourites-btn { background: none; border: none; font-size: 0.85rem; font-weight: 700; color: #a1a1aa; cursor: pointer; font-family: inherit; padding: 0.4rem 0.25rem; transition: color 0.2s; }
+        .nav-favourites-btn:hover { color: white; }
+        .nav-favourites-btn.active { color: #8b5cf6; }
         .search-container { position: relative; display: none; }
         .search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #71717a; }
         #search-input { background-color: #18181b; border: 1px solid #27272a; border-radius: 9999px; padding: 0.5rem 1rem 0.5rem 2.5rem; font-size: 0.875rem; color: white; width: 24rem; outline: none; transition: all 0.2s; }
@@ -96,7 +99,13 @@
         .movie-badge { position: absolute; top: 1rem; left: 1rem; background-color: #7c3aed; color: white; font-size: 0.6rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em; }
         .genre-badge { position: absolute; top: 1rem; right: 1rem; background-color: rgba(9,9,11,0.75); color: #a1a1aa; font-size: 0.6rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid #3f3f46; backdrop-filter: blur(4px); }
         .movie-info { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+        .movie-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
         .movie-title { color: white; font-weight: 800; font-size: 1rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .favourite-btn { background: none; border: none; cursor: pointer; padding: 0.1rem; flex-shrink: 0; color: #71717a; transition: transform 0.15s ease, color 0.15s ease; line-height: 0; }
+        .favourite-btn:hover { transform: scale(1.15); color: #a1a1aa; }
+        .favourite-btn.favourited { color: #ef4444; }
+        .favourite-btn.favourited svg { fill: #ef4444; }
+        .favourite-btn:active { transform: scale(0.9); }
         .movie-description { color: #71717a; font-size: 0.78rem; line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
         .movie-dates { margin-top: 0.75rem; padding-top: 1rem; border-top: 1px solid #27272a; display: flex; flex-direction: column; gap: 0.5rem; }
         .date-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem; }
@@ -111,6 +120,9 @@
         /* No results */
         .no-results { grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: #52525b; }
         .no-results p:first-child { font-size: 1.1rem; font-weight: 700; color: #71717a; margin-bottom: 0.5rem; }
+        .no-results .no-results-action { margin-top: 1.25rem; }
+        .no-results button { background-color: #7c3aed; color: white; font-weight: 700; padding: 0.6rem 1.25rem; border-radius: 0.6rem; border: none; cursor: pointer; font-size: 0.8rem; font-family: inherit; }
+        .no-results button:hover { background-color: #8b5cf6; }
 
         /* Footer */
         footer { background-color: #09090b; border-top: 1px solid #18181b; padding: 4rem 1.5rem; }
@@ -145,7 +157,12 @@
         .modal-poster { width: 100%; height: 16rem; overflow: hidden; }
         .modal-poster img { width: 100%; height: 100%; object-fit: cover; }
         .modal-body { flex: 1; padding: 1.5rem; overflow-y: auto; }
+        .modal-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
         .modal-title { font-size: 1.875rem; font-weight: 900; color: white; margin-bottom: 0.5rem; line-height: 1.2; }
+        .modal-favourite-btn { background: none; border: 1px solid #3f3f46; border-radius: 0.6rem; cursor: pointer; padding: 0.5rem 0.75rem; color: #a1a1aa; transition: all 0.15s ease; display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; font-family: inherit; flex-shrink: 0; }
+        .modal-favourite-btn:hover { border-color: #52525b; color: white; }
+        .modal-favourite-btn.favourited { color: #ef4444; border-color: rgba(239,68,68,0.4); }
+        .modal-favourite-btn.favourited svg { fill: #ef4444; }
         .modal-badges { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; color: #a1a1aa; font-size: 0.875rem; }
         .modal-badge-item { display: flex; align-items: center; gap: 0.5rem; background-color: rgba(39,39,42,0.5); padding: 0.375rem 0.75rem; border-radius: 0.5rem; border: 1px solid #3f3f46; }
         .modal-badge-item.streaming { border-color: rgba(251,191,36,0.3); }
@@ -178,6 +195,8 @@
         .auth-error.visible { display: block; }
         .auth-success { font-size: 0.78rem; color: #34d399; background-color: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); border-radius: 0.5rem; padding: 0.6rem 0.75rem; margin-bottom: 1rem; display: none; }
         .auth-success.visible { display: block; }
+        .auth-modal-note { font-size: 0.78rem; color: #a1a1aa; background-color: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.25); border-radius: 0.5rem; padding: 0.6rem 0.75rem; margin-bottom: 1rem; display: none; }
+        .auth-modal-note.visible { display: block; }
         svg { display: inline-block; vertical-align: middle; }
 
         /* Filter power toggle (Uiverse-style switch) */
@@ -215,6 +234,7 @@
                 </div>
             </div>
             <div class="nav-actions">
+                <button class="nav-favourites-btn" id="nav-favourites-btn">Favourites</button>
                 <div class="search-container">
                     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                     <input type="text" id="search-input" placeholder="Search 2026 movies..." />
@@ -262,8 +282,8 @@
 
         <div class="section-header">
             <div class="section-title">
-                <h2>2026 Lineup</h2>
-                <p class="section-subtitle">Tracking theatrical releases from July to December 2026</p>
+                <h2 id="section-heading">2026 Lineup</h2>
+                <p class="section-subtitle" id="section-subheading">Tracking theatrical releases from July to December 2026</p>
             </div>
             <div class="section-controls">
                 <div class="view-toggle">
@@ -378,7 +398,13 @@
                     <img id="modal-image" src="" alt="" />
                 </div>
                 <div class="modal-body">
-                    <h2 class="modal-title" id="modal-title"></h2>
+                    <div class="modal-title-row">
+                        <h2 class="modal-title" id="modal-title"></h2>
+                        <button class="modal-favourite-btn" id="modal-favourite-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            <span id="modal-favourite-label">Favourite</span>
+                        </button>
+                    </div>
                     <div class="modal-badges">
                         <div class="modal-badge-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -414,6 +440,7 @@
             </div>
             <h2>Welcome back</h2>
             <p class="auth-modal-subtitle">Don't have an account? <a id="switch-to-signup">Sign up</a></p>
+            <div class="auth-modal-note" id="login-note">Log in to view and manage your favourites.</div>
             <div class="auth-error" id="login-error"></div>
             <div class="auth-field">
                 <label>Email</label>
@@ -482,9 +509,17 @@
         let currentMovie = null;
         let activeFilters = { genre: 'All', theatrical: 'All', streaming: 'All' };
         let filtersEnabled = true;
+        let showingFavourites = false;
+        const HEART_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>';
 
         function applyFilters() {
             let filtered = MOVIES;
+
+            if (showingFavourites) {
+                const favs = getFavouriteIds();
+                filtered = filtered.filter(m => favs.includes(m.id));
+            }
+
             if (filtersEnabled) {
                 if (activeFilters.genre !== 'All') filtered = filtered.filter(m => m.genre === activeFilters.genre);
                 if (activeFilters.theatrical !== 'All') {
@@ -505,10 +540,19 @@
         function renderMovies(moviesToRender = MOVIES) {
             const grid = document.getElementById('movie-grid');
             if (moviesToRender.length === 0) {
-                grid.innerHTML = '<div class="no-results"><p>No films match your filters</p><p>Try adjusting or resetting your selection</p></div>';
+                if (showingFavourites) {
+                    grid.innerHTML = '<div class="no-results"><p>No favourites yet</p><p>Tap the heart on any film to save it here</p><div class="no-results-action"><button id="browse-films-btn">Browse Films</button></div></div>';
+                    const browseBtn = document.getElementById('browse-films-btn');
+                    if (browseBtn) browseBtn.addEventListener('click', () => setFavouritesView(false));
+                } else {
+                    grid.innerHTML = '<div class="no-results"><p>No films match your filters</p><p>Try adjusting or resetting your selection</p></div>';
+                }
                 return;
             }
-            grid.innerHTML = moviesToRender.map(movie => `
+            const favs = getFavouriteIds();
+            grid.innerHTML = moviesToRender.map(movie => {
+                const isFav = favs.includes(movie.id);
+                return `
                 <div class="movie-card" data-movie-id="${movie.id}">
                     <div class="movie-poster">
                         <img src="${movie.image}" alt="${movie.title}" />
@@ -517,7 +561,10 @@
                         <div class="genre-badge">${movie.genre}</div>
                     </div>
                     <div class="movie-info">
-                        <h3 class="movie-title">${movie.title}</h3>
+                        <div class="movie-title-row">
+                            <h3 class="movie-title">${movie.title}</h3>
+                            <button class="favourite-btn${isFav ? ' favourited' : ''}" data-fav-id="${movie.id}" title="${isFav ? 'Remove from favourites' : 'Add to favourites'}">${HEART_ICON}</button>
+                        </div>
                         <p class="movie-description">${movie.description}</p>
                         <div class="movie-dates">
                             <div class="date-row">
@@ -535,9 +582,16 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
             document.querySelectorAll('.movie-card').forEach(card => {
                 card.addEventListener('click', () => openModal(card.getAttribute('data-movie-id')));
+            });
+            document.querySelectorAll('.favourite-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleFavourite(btn.getAttribute('data-fav-id'));
+                });
             });
         }
 
@@ -550,6 +604,7 @@
             document.getElementById('modal-synopsis').textContent = currentMovie.description;
             document.getElementById('modal-theatrical').textContent = `${currentMovie.theatricalDate} (Theatrical)`;
             document.getElementById('modal-streaming').innerHTML = `EST. ${currentMovie.streamingDate} (${currentMovie.platform})`;
+            updateModalFavouriteUI();
             document.getElementById('modal-overlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -560,8 +615,20 @@
             currentMovie = null;
         }
 
+        function updateModalFavouriteUI() {
+            if (!currentMovie) return;
+            const btn = document.getElementById('modal-favourite-btn');
+            const label = document.getElementById('modal-favourite-label');
+            const isFav = getFavouriteIds().includes(currentMovie.id);
+            btn.classList.toggle('favourited', isFav);
+            label.textContent = isFav ? 'Favourited' : 'Favourite';
+        }
+
         document.getElementById('modal-close').addEventListener('click', closeModal);
         document.getElementById('modal-overlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
+        document.getElementById('modal-favourite-btn').addEventListener('click', () => {
+            if (currentMovie) toggleFavourite(currentMovie.id, updateModalFavouriteUI);
+        });
         document.getElementById('search-input').addEventListener('input', applyFilters);
         document.querySelector('[data-movie-id="1"]').addEventListener('click', () => openModal('12'));
 
@@ -595,7 +662,6 @@
         });
 
         updateFilterPowerUI();
-        renderMovies();
 
         // ── Authentication SYSTEM ──────────────────────────────────────────────
 
@@ -653,6 +719,7 @@
             currentUser = null;
             localStorage.removeItem('cinetracker_user');
             updateNavAuth();
+            if (showingFavourites) setFavouritesView(false);
         });
 
         // User sign up
@@ -678,7 +745,12 @@
             localStorage.setItem('cinetracker_user', JSON.stringify(currentUser));
             sucEl.textContent = `Account created! Welcome, ${name}.`;
             sucEl.classList.add('visible');
-            setTimeout(() => { closeAuthModal('signup-modal'); updateNavAuth(); }, 1200);
+            setTimeout(() => {
+                closeAuthModal('signup-modal');
+                updateNavAuth();
+                updateFavouritesNavUI();
+                if (pendingFavouriteAction) { const a = pendingFavouriteAction; pendingFavouriteAction = null; a(); }
+            }, 1200);
         });
 
         //User Log in
@@ -697,13 +769,74 @@
             localStorage.setItem('cinetracker_user', JSON.stringify(currentUser));
             closeAuthModal('login-modal');
             updateNavAuth();
+            updateFavouritesNavUI();
+            if (pendingFavouriteAction) { const a = pendingFavouriteAction; pendingFavouriteAction = null; a(); }
         });
 
         // Enter key support
         ['login-email','login-password'].forEach(id => document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-submit-btn').click(); }));
         ['signup-name','signup-email','signup-password','signup-confirm'].forEach(id => document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('signup-submit-btn').click(); }));
 
+        // ── FAVOURITES SYSTEM I HAVE ADDED ───────────────────────────────────────────────────
+
+        let pendingFavouriteAction = null;
+
+        function getAllFavourites() { return JSON.parse(localStorage.getItem('cinetracker_favourites') || '{}'); }
+        function saveAllFavourites(f) { localStorage.setItem('cinetracker_favourites', JSON.stringify(f)); }
+
+        function getFavouriteIds() {
+            if (!currentUser) return [];
+            const all = getAllFavourites();
+            return all[currentUser.email] || [];
+        }
+
+        function requireLoginForFavourites(note) {
+            document.getElementById('login-error').classList.remove('visible');
+            const noteEl = document.getElementById('login-note');
+            noteEl.textContent = note || 'Log in to view and manage your favourites.';
+            noteEl.classList.add('visible');
+            openAuthModal('login-modal');
+        }
+
+        function toggleFavourite(movieId, afterToggle) {
+            if (!currentUser) {
+                pendingFavouriteAction = () => { toggleFavourite(movieId, afterToggle); };
+                requireLoginForFavourites('Log in to save this film to your favourites.');
+                return;
+            }
+            const all = getAllFavourites();
+            const list = all[currentUser.email] || [];
+            const idx = list.indexOf(movieId);
+            if (idx === -1) list.push(movieId); else list.splice(idx, 1);
+            all[currentUser.email] = list;
+            saveAllFavourites(all);
+            if (afterToggle) afterToggle();
+            applyFilters();
+        }
+
+        function updateFavouritesNavUI() {
+            const btn = document.getElementById('nav-favourites-btn');
+            btn.classList.toggle('active', showingFavourites);
+        }
+
+        function setFavouritesView(on) {
+            if (on && !currentUser) {
+                pendingFavouriteAction = () => setFavouritesView(true);
+                requireLoginForFavourites('Log in to view your favourites.');
+                return;
+            }
+            showingFavourites = on;
+            updateFavouritesNavUI();
+            document.getElementById('section-heading').textContent = showingFavourites ? 'Your Favourites' : '2026 Lineup';
+            document.getElementById('section-subheading').textContent = showingFavourites ? 'Films you\'ve saved to watch' : 'Tracking theatrical releases from July to December 2026';
+            applyFilters();
+        }
+
+        document.getElementById('nav-favourites-btn').addEventListener('click', () => setFavouritesView(!showingFavourites));
+
         updateNavAuth();
+        updateFavouritesNavUI();
+        renderMovies();
     </script>
 </body>
 </html>
